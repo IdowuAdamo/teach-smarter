@@ -1,0 +1,119 @@
+{
+  "Comment": "TeachSmarter: Parent Communication Generation and Teacher Approval Workflow",
+  "StartAt": "GenerateCommunicationDrafts",
+  "States": {
+    "GenerateCommunicationDrafts": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:${AWS_REGION}:${AWS_ACCOUNT_ID}:function:TeachSmarter-ParentCommunication",
+        "Payload": {
+          "organisation_id.$": "$.organisation_id",
+          "student_ids.$": "$.student_ids",
+          "assessment_id.$": "$.assessment_id",
+          "reporting_period.$": "$.reporting_period"
+        }
+      },
+      "Next": "SaveDraftsToInbox"
+    },
+    "SaveDraftsToInbox": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:${AWS_REGION}:${AWS_ACCOUNT_ID}:function:TeachSmarter-SaveCommunicationDrafts",
+        "Payload": {
+          "organisation_id.$": "$.organisation_id",
+          "drafts.$": "$.drafts",
+          "status": "PENDING"
+        }
+      },
+      "Next": "WaitForTeacherApproval"
+    },
+    "WaitForTeacherApproval": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sqs:sendMessage.waitForTaskToken",
+      "Parameters": {
+        "QueueUrl": "https://sqs.${AWS_REGION}.amazonaws.com/${AWS_ACCOUNT_ID}/teachsmarter-communication-approvals",
+        "MessageBody": {
+          "task_token.$": "$$.Task.Token",
+          "draft_ids.$": "$.draft_ids",
+          "organisation_id.$": "$.organisation_id"
+        }
+      },
+      "TimeoutSeconds": 604800,
+      "Next": "VerifyApprovalAndHash"
+    },
+    "VerifyApprovalAndHash": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:${AWS_REGION}:${AWS_ACCOUNT_ID}:function:TeachSmarter-VerifyApproval",
+        "Payload": {
+          "organisation_id.$": "$.organisation_id",
+          "approval_payload.$": "$.approval_payload"
+        }
+      },
+      "Next": "CheckDeliveryMode"
+    },
+    "CheckDeliveryMode": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.is_demo_mode",
+          "BooleanEquals": true,
+          "Next": "SimulateDemoDelivery"
+        }
+      ],
+      "Default": "DispatchViaAmazonSES"
+    },
+    "SimulateDemoDelivery": {
+      "Type": "Pass",
+      "Result": {
+        "delivery_status": "SIMULATED_DEMO",
+        "message": "Demo mode active: external emails bypassed."
+      },
+      "ResultPath": "$.delivery_result",
+      "Next": "RecordAuditTrail"
+    },
+    "DispatchViaAmazonSES": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::ses:sendEmail",
+      "Parameters": {
+        "Source": "notifications@teachsmarter.internal",
+        "Destination": {
+          "ToAddresses.$": "$.recipient_emails"
+        },
+        "Message": {
+          "Subject": {
+            "Data.$": "$.approved_subject"
+          },
+          "Body": {
+            "Text": {
+              "Data.$": "$.approved_body"
+            }
+          }
+        }
+      },
+      "ResultPath": "$.delivery_result",
+      "Next": "RecordAuditTrail"
+    },
+    "RecordAuditTrail": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:${AWS_REGION}:${AWS_ACCOUNT_ID}:function:TeachSmarter-AuditLogger",
+        "Payload": {
+          "organisation_id.$": "$.organisation_id",
+          "action": "COMMUNICATION_DISPATCHED",
+          "delivery_result.$": "$.delivery_result"
+        }
+      },
+      "End": true
+    }
+  }
+}
+

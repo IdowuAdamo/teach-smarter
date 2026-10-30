@@ -1,0 +1,98 @@
+{
+  "Comment": "TeachSmarter: Student Performance Analysis and Diagnostics Workflow",
+  "StartAt": "ValidateAndNormalizeInput",
+  "States": {
+    "ValidateAndNormalizeInput": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:${AWS_REGION}:${AWS_ACCOUNT_ID}:function:TeachSmarter-DataIngestion",
+        "Payload": {
+          "organisation_id.$": "$.organisation_id",
+          "classroom_id.$": "$.classroom_id",
+          "s3_bucket.$": "$.s3_bucket",
+          "s3_key.$": "$.s3_key"
+        }
+      },
+      "Retry": [
+        {
+          "ErrorEquals": ["Lambda.ServiceException", "Lambda.AWSLambdaException", "Lambda.SdkClientException"],
+          "IntervalSeconds": 2,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Next": "CheckConfirmationRequired"
+    },
+    "CheckConfirmationRequired": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.requires_teacher_confirmation",
+          "BooleanEquals": true,
+          "Next": "WaitForTeacherConfirmation"
+        }
+      ],
+      "Default": "ComputeDeterministicAnalytics"
+    },
+    "WaitForTeacherConfirmation": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sqs:sendMessage.waitForTaskToken",
+      "Parameters": {
+        "QueueUrl": "https://sqs.${AWS_REGION}.amazonaws.com/${AWS_ACCOUNT_ID}/teachsmarter-import-confirmation",
+        "MessageBody": {
+          "task_token.$": "$$.Task.Token",
+          "import_id.$": "$.import_id",
+          "organisation_id.$": "$.organisation_id",
+          "validation_report.$": "$.validation_report"
+        }
+      },
+      "TimeoutSeconds": 86400,
+      "Next": "ComputeDeterministicAnalytics"
+    },
+    "ComputeDeterministicAnalytics": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:${AWS_REGION}:${AWS_ACCOUNT_ID}:function:TeachSmarter-AnalyticsCore",
+        "Payload": {
+          "organisation_id.$": "$.organisation_id",
+          "classroom_id.$": "$.classroom_id",
+          "assessment_id.$": "$.assessment_id"
+        }
+      },
+      "Next": "RunStudentDiagnostics"
+    },
+    "RunStudentDiagnostics": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:${AWS_REGION}:${AWS_ACCOUNT_ID}:function:TeachSmarter-StudentDiagnostics",
+        "Payload": {
+          "organisation_id.$": "$.organisation_id",
+          "classroom_id.$": "$.classroom_id",
+          "analytics_results.$": "$.analytics_results"
+        }
+      },
+      "Next": "RunTeachingStrategy"
+    },
+    "RunTeachingStrategy": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:${AWS_REGION}:${AWS_ACCOUNT_ID}:function:TeachSmarter-TeachingStrategy",
+        "Payload": {
+          "organisation_id.$": "$.organisation_id",
+          "classroom_id.$": "$.classroom_id",
+          "diagnostic_findings.$": "$.diagnostic_findings"
+        }
+      },
+      "End": true
+    }
+  }
+}
+

@@ -1,0 +1,47 @@
+[project]
+name = "teachsmarter-backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "idowuAdamo", email = "idowuadamo2904@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "aiosqlite>=0.22.1",
+    "alembic>=1.20.1",
+    "asyncpg>=0.32.0",
+    "cryptography>=50.0.2",
+    "fastapi>=0.162.0",
+    "greenlet>=3.5.6",
+    "httpx>=0.28.1",
+    "numpy>=2.5.4",
+    "openpyxl>=3.1.5",
+    "pandas>=3.1.0",
+    "pydantic>=2.14.2",
+    "pydantic-settings>=2.16.2",
+    "pyjwt>=2.15.1",
+    "python-multipart>=0.0.32",
+    "scipy>=1.18.1",
+    "sqlalchemy>=2.0",
+    "uvicorn>=0.54.0",
+]
+
+[project.scripts]
+teachsmarter-backend = "teachsmarter_backend:main"
+
+[build-system]
+requires = ["uv_build>=0.12.18,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "pytest-asyncio>=1.4.1",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+asyncio_mode = "auto"
+
+

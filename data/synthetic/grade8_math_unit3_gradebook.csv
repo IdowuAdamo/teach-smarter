@@ -1,0 +1,26 @@
+Student ID,First Name,Last Name,Guardian Name,Guardian Email,Language,Unit 1 (%),Unit 2 (%),Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Unit 3 Total,Unit 3 (%)
+STU-801,Chloe,Adams,Robert Adams,robert.adams@example.com,en,96.0,98.0,A,C,B,D,A,B,C,A,D,C,B,C,A,D,A,14.0,93.3
+STU-802,Sarah,Jenkins,Patricia Jenkins,patricia.j@example.com,en,55.0,62.0,A,C,B,D,A,B,C,A,D,C,B,A,A,D,A,13.0,86.7
+STU-803,Marcus,Vance,Angela Vance,angela.vance@example.org,en,90.0,88.0,A,C,B,D,A,B,B,A,D,C,D,C,B,C,D,11.0,73.3
+STU-804,David,Okafor,Chinedu Okafor,c.okafor@example.com,en,48.0,50.0,C,C,B,B,D,B,D,A,D,C,B,C,A,B,B,9.0,60.0
+STU-805,Mateo,Alvarez,Elena Alvarez,elena.alvarez@example.es,es,73.2,72.9,A,D,B,D,A,B,D,A,C,C,B,C,B,D,A,11.0,73.3
+STU-806,Aisha,Bello,Ibrahim Bello,ibello@example.ng,en,96.4,91.2,A,C,B,D,A,B,C,A,D,C,B,D,A,D,C,12.0,80.0
+STU-807,Liam,Smith,Laura Smith,laura.smith@example.com,en,73.1,84.0,A,C,A,D,A,B,C,A,D,C,B,A,A,D,C,11.0,73.3
+STU-808,Emma,Johnson,Keith Johnson,kjohnson@example.com,en,78.8,74.8,A,C,B,C,A,B,C,A,D,C,D,A,A,D,A,11.0,73.3
+STU-809,Noah,Williams,Samantha Williams,swilliams@example.com,en,94.8,91.9,A,C,C,D,A,B,C,A,D,C,D,A,A,D,A,11.0,73.3
+STU-810,Olivia,Brown,Michael Brown,mbrown@example.com,en,75.4,78.5,D,D,B,D,D,B,D,A,D,C,B,C,A,D,A,11.0,73.3
+STU-811,Ethan,Jones,Rachel Jones,rjones@example.com,en,71.2,82.7,B,C,B,D,A,D,D,A,D,C,B,B,A,D,A,11.0,73.3
+STU-812,Sophia,Garcia,Carlos Garcia,carlos.g@example.es,es,77.4,83.8,A,C,B,A,A,B,C,A,D,C,C,D,A,D,A,11.0,73.3
+STU-813,Mason,Miller,Brenda Miller,bmiller@example.com,en,81.6,83.0,B,C,B,A,A,B,D,A,B,C,B,D,A,D,B,9.0,60.0
+STU-814,Isabella,Davis,James Davis,jdavis@example.com,en,92.4,95.7,A,C,B,D,A,B,C,A,D,A,B,C,A,D,A,13.0,86.7
+STU-815,Lucas,Rodriguez,Maria Rodriguez,mrodriguez@example.com,en,81.2,78.0,A,C,B,D,A,B,A,A,A,C,B,B,A,A,A,11.0,73.3
+STU-816,Mia,Martinez,Jorge Martinez,jorge.m@example.com,en,74.4,84.0,B,C,B,D,A,B,C,A,D,D,B,D,A,D,C,10.0,66.7
+STU-817,Aiden,Hernandez,Sofia Hernandez,shernandez@example.com,en,55.2,47.2,C,C,B,B,A,B,A,A,B,B,A,C,A,D,A,9.0,60.0
+STU-818,Harper,Lopez,Daniel Lopez,dlopez@example.com,en,72.7,71.8,B,D,D,D,A,A,C,D,D,C,B,C,B,A,B,6.0,40.0
+STU-819,Elijah,Gonzalez,Teresa Gonzalez,tgonzalez@example.com,en,77.3,75.0,A,D,A,A,B,B,A,C,C,B,B,B,C,D,D,4.0,26.7
+STU-820,Evelyn,Wilson,Mark Wilson,mwilson@example.com,en,72.9,81.5,B,C,B,D,C,B,D,A,B,A,C,C,C,D,D,7.0,46.7
+STU-821,James,Anderson,Nancy Anderson,nanderson@example.com,en,92.8,94.3,A,A,B,D,A,B,C,A,D,C,B,D,A,D,C,11.0,73.3
+STU-822,Amara,Eze,Emeka Eze,eze.family@example.ng,en,95.0,93.3,A,C,B,D,A,B,C,A,D,C,B,A,A,D,A,13.0,86.7
+STU-823,Benjamin,Thomas,Paul Thomas,pthomas@example.com,en,45.0,49.4,A,D,B,D,D,D,B,C,C,A,A,A,B,D,B,5.0,33.3
+STU-824,Charlotte,Taylor,Lisa Taylor,ltaylor@example.com,en,81.8,78.6,C,C,B,D,A,B,C,A,D,A,A,C,D,D,B,9.0,60.0
+STU-825,Henry,Moore,Diana Moore,dmoore@example.com,en,80.8,71.7,A,C,B,D,A,C,D,D,D,C,C,C,A,D,D,10.0,66.7

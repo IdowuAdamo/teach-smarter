@@ -1,0 +1,70 @@
+{
+  "Comment": "TeachSmarter: Assessment Quality Review and Psychometric Analysis Workflow",
+  "StartAt": "ExtractAssessmentItems",
+  "States": {
+    "ExtractAssessmentItems": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:${AWS_REGION}:${AWS_ACCOUNT_ID}:function:TeachSmarter-AssessmentExtraction",
+        "Payload": {
+          "organisation_id.$": "$.organisation_id",
+          "assessment_id.$": "$.assessment_id",
+          "file_uri.$": "$.file_uri"
+        }
+      },
+      "Retry": [
+        {
+          "ErrorEquals": ["Lambda.ServiceException", "Lambda.AWSLambdaException"],
+          "IntervalSeconds": 2,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Next": "CalculateItemStatistics"
+    },
+    "CalculateItemStatistics": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:${AWS_REGION}:${AWS_ACCOUNT_ID}:function:TeachSmarter-AnalyticsCore",
+        "Payload": {
+          "organisation_id.$": "$.organisation_id",
+          "assessment_id.$": "$.assessment_id"
+        }
+      },
+      "Next": "AssessmentIntelligenceReview"
+    },
+    "AssessmentIntelligenceReview": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:${AWS_REGION}:${AWS_ACCOUNT_ID}:function:TeachSmarter-AssessmentIntelligence",
+        "Payload": {
+          "organisation_id.$": "$.organisation_id",
+          "assessment_id.$": "$.assessment_id",
+          "item_statistics.$": "$.item_statistics"
+        }
+      },
+      "Next": "PersistReviewFindings"
+    },
+    "PersistReviewFindings": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "OutputPath": "$.Payload",
+      "Parameters": {
+        "FunctionName": "arn:aws:lambda:${AWS_REGION}:${AWS_ACCOUNT_ID}:function:TeachSmarter-AssessmentPersistence",
+        "Payload": {
+          "organisation_id.$": "$.organisation_id",
+          "assessment_id.$": "$.assessment_id",
+          "review_results.$": "$.review_results"
+        }
+      },
+      "End": true
+    }
+  }
+}
+

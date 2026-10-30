@@ -1,0 +1,3876 @@
+{
+  "classroom": {
+    "name": "Grade 8 Mathematics (Period 3)",
+    "subject": "Mathematics",
+    "grade_level": "Grade 8",
+    "academic_year": "2026-2027",
+    "total_students": 25
+  },
+  "assessments": [
+    {
+      "id": "ASSESS-U1",
+      "title": "Unit 1: Foundations of Algebra",
+      "max_score": 100.0,
+      "date_administered": "2026-09-15"
+    },
+    {
+      "id": "ASSESS-U2",
+      "title": "Unit 2: Linear Relationships",
+      "max_score": 100.0,
+      "date_administered": "2026-10-06"
+    },
+    {
+      "id": "ASSESS-U3",
+      "title": "Unit 3: Linear Equations & Exponents",
+      "max_score": 15.0,
+      "date_administered": "2026-10-27",
+      "questions": [
+        {
+          "num": 1,
+          "topic": "Solving Linear Equations",
+          "key": "A",
+          "prompt": "Solve for x: 3x - 7 = 14"
+        },
+        {
+          "num": 2,
+          "topic": "Solving Linear Equations",
+          "key": "C",
+          "prompt": "Solve for y: 2(y + 4) = 18"
+        },
+        {
+          "num": 3,
+          "topic": "Solving Linear Equations",
+          "key": "B",
+          "prompt": "Find the value of p: 5p + 3 = 2p + 15"
+        },
+        {
+          "num": 4,
+          "topic": "Solving Linear Equations",
+          "key": "D",
+          "prompt": "Solve: (x / 4) + 6 = 11"
+        },
+        {
+          "num": 5,
+          "topic": "Solving Linear Equations",
+          "key": "A",
+          "prompt": "Solve for m: -4m = 28"
+        },
+        {
+          "num": 6,
+          "topic": "Linear Graphing & Slope",
+          "key": "B",
+          "prompt": "What is the slope of the line passing through (2, 3) and (6, 11)?"
+        },
+        {
+          "num": 7,
+          "topic": "Linear Graphing & Slope",
+          "key": "B",
+          "prompt": "What is the y-intercept of the line 4x - 2y = 8?",
+          "is_anomaly": "MISKEY_Q7"
+        },
+        {
+          "num": 8,
+          "topic": "Linear Graphing & Slope",
+          "key": "A",
+          "prompt": "Which graph represents a line with undefined slope?"
+        },
+        {
+          "num": 9,
+          "topic": "Linear Graphing & Slope",
+          "key": "D",
+          "prompt": "Identify the equation of a line parallel to y = 3x - 5 passing through (0, 2)."
+        },
+        {
+          "num": 10,
+          "topic": "Linear Graphing & Slope",
+          "key": "C",
+          "prompt": "Find the x-intercept of the line y = 2x - 6."
+        },
+        {
+          "num": 11,
+          "topic": "Negative Exponents & Scientific Notation",
+          "key": "B",
+          "prompt": "Simplify: 5^-2"
+        },
+        {
+          "num": 12,
+          "topic": "Negative Exponents & Scientific Notation",
+          "key": "C",
+          "prompt": "Which of the following is equivalent to (2^3)^2?",
+          "is_anomaly": "POOR_DISC_Q12"
+        },
+        {
+          "num": 13,
+          "topic": "Negative Exponents & Scientific Notation",
+          "key": "A",
+          "prompt": "Express in scientific notation: 0.00045"
+        },
+        {
+          "num": 14,
+          "topic": "Negative Exponents & Scientific Notation",
+          "key": "D",
+          "prompt": "Simplify: (x^-3 * x^7) / x^2"
+        },
+        {
+          "num": 15,
+          "topic": "Negative Exponents & Scientific Notation",
+          "key": "A",
+          "prompt": "Which of the following expressions is NOT NOT equal to 1?",
+          "is_anomaly": "AMBIGUOUS_Q15"
+        }
+      ]
+    }
+  ],
+  "students": [
+    {
+      "student_number": "STU-801",
+      "first_name": "Chloe",
+      "last_name": "Adams",
+      "guardian_name": "Robert Adams",
+      "guardian_email": "robert.adams@example.com",
+      "preferred_language": "en",
+      "profile_type": "high_performer",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 96.0
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 98.0
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 93.3,
+          "raw_score": 14.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-802",
+      "first_name": "Sarah",
+      "last_name": "Jenkins",
+      "guardian_name": "Patricia Jenkins",
+      "guardian_email": "patricia.j@example.com",
+      "preferred_language": "en",
+      "profile_type": "breakthrough",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 55.0
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 62.0
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 86.7,
+          "raw_score": 13.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-803",
+      "first_name": "Marcus",
+      "last_name": "Vance",
+      "guardian_name": "Angela Vance",
+      "guardian_email": "angela.vance@example.org",
+      "preferred_language": "en",
+      "profile_type": "declining",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 90.0
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 88.0
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 73.3,
+          "raw_score": 11.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-804",
+      "first_name": "David",
+      "last_name": "Okafor",
+      "guardian_name": "Chinedu Okafor",
+      "guardian_email": "c.okafor@example.com",
+      "preferred_language": "en",
+      "profile_type": "struggling",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 48.0
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 50.0
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 60.0,
+          "raw_score": 9.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-805",
+      "first_name": "Mateo",
+      "last_name": "Alvarez",
+      "guardian_name": "Elena Alvarez",
+      "guardian_email": "elena.alvarez@example.es",
+      "preferred_language": "es",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 73.2
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 72.9
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 73.3,
+          "raw_score": 11.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-806",
+      "first_name": "Aisha",
+      "last_name": "Bello",
+      "guardian_name": "Ibrahim Bello",
+      "guardian_email": "ibello@example.ng",
+      "preferred_language": "en",
+      "profile_type": "high_performer",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 96.4
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 91.2
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 80.0,
+          "raw_score": 12.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-807",
+      "first_name": "Liam",
+      "last_name": "Smith",
+      "guardian_name": "Laura Smith",
+      "guardian_email": "laura.smith@example.com",
+      "preferred_language": "en",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 73.1
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 84.0
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 73.3,
+          "raw_score": 11.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-808",
+      "first_name": "Emma",
+      "last_name": "Johnson",
+      "guardian_name": "Keith Johnson",
+      "guardian_email": "kjohnson@example.com",
+      "preferred_language": "en",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 78.8
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 74.8
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 73.3,
+          "raw_score": 11.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-809",
+      "first_name": "Noah",
+      "last_name": "Williams",
+      "guardian_name": "Samantha Williams",
+      "guardian_email": "swilliams@example.com",
+      "preferred_language": "en",
+      "profile_type": "high_performer",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 94.8
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 91.9
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 73.3,
+          "raw_score": 11.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-810",
+      "first_name": "Olivia",
+      "last_name": "Brown",
+      "guardian_name": "Michael Brown",
+      "guardian_email": "mbrown@example.com",
+      "preferred_language": "en",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 75.4
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 78.5
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 73.3,
+          "raw_score": 11.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-811",
+      "first_name": "Ethan",
+      "last_name": "Jones",
+      "guardian_name": "Rachel Jones",
+      "guardian_email": "rjones@example.com",
+      "preferred_language": "en",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 71.2
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 82.7
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 73.3,
+          "raw_score": 11.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-812",
+      "first_name": "Sophia",
+      "last_name": "Garcia",
+      "guardian_name": "Carlos Garcia",
+      "guardian_email": "carlos.g@example.es",
+      "preferred_language": "es",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 77.4
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 83.8
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 73.3,
+          "raw_score": 11.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-813",
+      "first_name": "Mason",
+      "last_name": "Miller",
+      "guardian_name": "Brenda Miller",
+      "guardian_email": "bmiller@example.com",
+      "preferred_language": "en",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 81.6
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 83.0
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 60.0,
+          "raw_score": 9.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-814",
+      "first_name": "Isabella",
+      "last_name": "Davis",
+      "guardian_name": "James Davis",
+      "guardian_email": "jdavis@example.com",
+      "preferred_language": "en",
+      "profile_type": "high_performer",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 92.4
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 95.7
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 86.7,
+          "raw_score": 13.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-815",
+      "first_name": "Lucas",
+      "last_name": "Rodriguez",
+      "guardian_name": "Maria Rodriguez",
+      "guardian_email": "mrodriguez@example.com",
+      "preferred_language": "en",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 81.2
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 78.0
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 73.3,
+          "raw_score": 11.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-816",
+      "first_name": "Mia",
+      "last_name": "Martinez",
+      "guardian_name": "Jorge Martinez",
+      "guardian_email": "jorge.m@example.com",
+      "preferred_language": "en",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 74.4
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 84.0
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 66.7,
+          "raw_score": 10.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-817",
+      "first_name": "Aiden",
+      "last_name": "Hernandez",
+      "guardian_name": "Sofia Hernandez",
+      "guardian_email": "shernandez@example.com",
+      "preferred_language": "en",
+      "profile_type": "struggling",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 55.2
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 47.2
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 60.0,
+          "raw_score": 9.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-818",
+      "first_name": "Harper",
+      "last_name": "Lopez",
+      "guardian_name": "Daniel Lopez",
+      "guardian_email": "dlopez@example.com",
+      "preferred_language": "en",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 72.7
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 71.8
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 40.0,
+          "raw_score": 6.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-819",
+      "first_name": "Elijah",
+      "last_name": "Gonzalez",
+      "guardian_name": "Teresa Gonzalez",
+      "guardian_email": "tgonzalez@example.com",
+      "preferred_language": "en",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 77.3
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 75.0
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 26.7,
+          "raw_score": 4.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-820",
+      "first_name": "Evelyn",
+      "last_name": "Wilson",
+      "guardian_name": "Mark Wilson",
+      "guardian_email": "mwilson@example.com",
+      "preferred_language": "en",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 72.9
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 81.5
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 46.7,
+          "raw_score": 7.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-821",
+      "first_name": "James",
+      "last_name": "Anderson",
+      "guardian_name": "Nancy Anderson",
+      "guardian_email": "nanderson@example.com",
+      "preferred_language": "en",
+      "profile_type": "high_performer",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 92.8
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 94.3
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 73.3,
+          "raw_score": 11.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-822",
+      "first_name": "Amara",
+      "last_name": "Eze",
+      "guardian_name": "Emeka Eze",
+      "guardian_email": "eze.family@example.ng",
+      "preferred_language": "en",
+      "profile_type": "high_performer",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 95.0
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 93.3
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 86.7,
+          "raw_score": 13.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-823",
+      "first_name": "Benjamin",
+      "last_name": "Thomas",
+      "guardian_name": "Paul Thomas",
+      "guardian_email": "pthomas@example.com",
+      "preferred_language": "en",
+      "profile_type": "struggling",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 45.0
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 49.4
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 33.3,
+          "raw_score": 5.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "D",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-824",
+      "first_name": "Charlotte",
+      "last_name": "Taylor",
+      "guardian_name": "Lisa Taylor",
+      "guardian_email": "ltaylor@example.com",
+      "preferred_language": "en",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 81.8
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 78.6
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 60.0,
+          "raw_score": 9.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "A",
+          "correct_option": "C",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "B",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "student_number": "STU-825",
+      "first_name": "Henry",
+      "last_name": "Moore",
+      "guardian_name": "Diana Moore",
+      "guardian_email": "dmoore@example.com",
+      "preferred_language": "en",
+      "profile_type": "mid_tier",
+      "history": [
+        {
+          "assessment_id": "ASSESS-U1",
+          "title": "Unit 1",
+          "score_pct": 80.8
+        },
+        {
+          "assessment_id": "ASSESS-U2",
+          "title": "Unit 2",
+          "score_pct": 71.7
+        },
+        {
+          "assessment_id": "ASSESS-U3",
+          "title": "Unit 3",
+          "score_pct": 66.7,
+          "raw_score": 10.0,
+          "max_score": 15.0
+        }
+      ],
+      "unit3_responses": [
+        {
+          "item_number": 1,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 2,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 3,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "B",
+          "correct_option": "B",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 4,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 5,
+          "topic_tag": "Solving Linear Equations",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 6,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 7,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 8,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 9,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 10,
+          "topic_tag": "Linear Graphing & Slope",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 11,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "B",
+          "is_correct": false,
+          "score": 0.0
+        },
+        {
+          "item_number": 12,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "C",
+          "correct_option": "C",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 13,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "A",
+          "correct_option": "A",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 14,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "D",
+          "is_correct": true,
+          "score": 1.0
+        },
+        {
+          "item_number": 15,
+          "topic_tag": "Negative Exponents & Scientific Notation",
+          "selected_option": "D",
+          "correct_option": "A",
+          "is_correct": false,
+          "score": 0.0
+        }
+      ]
+    }
+  ]
+}
