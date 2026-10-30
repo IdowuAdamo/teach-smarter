@@ -2,11 +2,20 @@
 TeachSmarter FastAPI Application Entrypoint.
 """
 
+import sys
+from pathlib import Path
+
+# Ensure project root is in sys.path so 'agents' package is discoverable
+_ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+if str(_ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(_ROOT_DIR))
+
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1.endpoints import router as v1_router
+
 from app.core.config import get_settings
 from app.core.database import init_tables
 
