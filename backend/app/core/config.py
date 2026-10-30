@@ -18,18 +18,29 @@ class Settings(BaseSettings):
     CLERK_SECRET_KEY: str = "sk_test_placeholder"
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: str = "pk_test_placeholder"
     CLERK_WEBHOOK_SECRET: Optional[str] = None
-    CLERK_ISSUER: Optional[str] = None  # e.g., https://clerk.your-domain.com
+    CLERK_ISSUER: Optional[str] = None
+    CLERK_JWKS_URL: Optional[str] = None
 
     # AWS
-    AWS_REGION: str = "eu-west-1"
+    AWS_ACCOUNT_ID: Optional[str] = None
+    AWS_REGION: str = "us-east-1"
     AWS_S3_UPLOADS_BUCKET: str = "teachsmarter-uploads-dev"
     AWS_SES_SENDER_EMAIL: str = "notifications@teachsmarter.internal"
+    AWS_STEP_FUNCTIONS_PERFORMANCE_ARN: Optional[str] = None
+
+    # LLM / AI Configuration (Provider-independent layer)
+    LLM_PROVIDER: str = "openai"
+    OPENAI_API_KEY: Optional[str] = None
+    OPENAI_MODEL: str = "gpt-4o-mini"
+    ANTHROPIC_API_KEY: Optional[str] = None
+    GEMINI_API_KEY: Optional[str] = None
 
     # Encryption / Security
     SECRET_KEY: str = "teachsmarter_development_secret_key_32_chars_min"
+    JWT_SECRET: str = "super_secret_jwt_key_for_testing"
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=(".env", "../.env"),
         env_file_encoding="utf-8",
         extra="ignore",
     )
@@ -38,4 +49,3 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     return Settings()
-

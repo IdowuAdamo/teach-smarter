@@ -56,5 +56,7 @@ Thumbs.db
 # Databases & local logs
 *.sqlite
 *.sqlite3
+*.db
 *.log
+
 

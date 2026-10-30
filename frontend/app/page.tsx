@@ -17,7 +17,9 @@ import {
 import { AnalyticsCharts } from "@/components/AnalyticsCharts";
 import { ItemAnalysisTable, ItemAnalysisData } from "@/components/ItemAnalysisTable";
 import { StudentTrajectoryTable, StudentTrajectoryData } from "@/components/StudentTrajectoryTable";
+import { TeachingRecommendations } from "@/components/TeachingRecommendations";
 import { ApprovalHub } from "@/components/ApprovalHub";
+
 
 export default function DashboardPage() {
   const [loading, setLoading] = useState(false);
@@ -254,6 +256,9 @@ export default function DashboardPage() {
       <div id="trajectories">
         <StudentTrajectoryTable students={students} />
       </div>
+
+      {/* Teaching Strategy & Small-Group Recommendations */}
+      <TeachingRecommendations />
 
       {/* Human in the Loop Approval Hub */}
       <ApprovalHub />

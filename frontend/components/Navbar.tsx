@@ -41,6 +41,12 @@ export function Navbar() {
               <span>Student Diagnostics</span>
             </Link>
             <Link
+              href="#recommendations"
+              className="px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 flex items-center space-x-1.5"
+            >
+              <span>Teaching Strategy</span>
+            </Link>
+            <Link
               href="#approvals"
               className="px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 flex items-center space-x-1.5"
             >

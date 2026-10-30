@@ -11,6 +11,8 @@ from .entities import (
     QuestionResponse,
     CommunicationDraft,
     AuditEvent,
+    DiagnosticFinding,
+    TeachingRecommendation,
 )
 
 __all__ = [
@@ -26,5 +28,6 @@ __all__ = [
     "QuestionResponse",
     "CommunicationDraft",
     "AuditEvent",
+    "DiagnosticFinding",
+    "TeachingRecommendation",
 ]
-

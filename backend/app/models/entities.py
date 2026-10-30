@@ -228,6 +228,10 @@ class CommunicationDraft(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now, onupdate=utc_now)
 
+    student: Mapped["Student"] = relationship()
+    guardian: Mapped[Optional["Guardian"]] = relationship()
+
+
 
 class AuditEvent(Base):
     __tablename__ = "audit_events"
@@ -240,4 +244,33 @@ class AuditEvent(Base):
     resource_id: Mapped[str] = mapped_column(String(100), nullable=False)
     metadata_json: Mapped[Optional[dict]] = mapped_column(JSON)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+class DiagnosticFinding(Base):
+    __tablename__ = "diagnostic_findings"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=gen_uuid)
+    organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), nullable=False, index=True)
+    classroom_id: Mapped[str] = mapped_column(ForeignKey("classrooms.id", ondelete="CASCADE"), nullable=False, index=True)
+    assessment_id: Mapped[str] = mapped_column(ForeignKey("assessments.id", ondelete="CASCADE"), nullable=False, index=True)
+    pedagogical_summary: Mapped[str] = mapped_column(Text, nullable=False)
+    findings_json: Mapped[dict] = mapped_column(JSON, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
+
+class TeachingRecommendation(Base):
+    __tablename__ = "teaching_recommendations"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=gen_uuid)
+    organisation_id: Mapped[str] = mapped_column(ForeignKey("organisations.id", ondelete="CASCADE"), nullable=False, index=True)
+    classroom_id: Mapped[str] = mapped_column(ForeignKey("classrooms.id", ondelete="CASCADE"), nullable=False, index=True)
+    title: Mapped[str] = mapped_column(String(255), nullable=False)
+    recommendation_type: Mapped[str] = mapped_column(String(50), nullable=False)  # 'GROUPING', 'REMEDIAL', 'EXTENSION'
+    target_topic: Mapped[str] = mapped_column(String(100), nullable=False)
+    target_students_json: Mapped[list] = mapped_column(JSON, nullable=False)
+    action_plan: Mapped[str] = mapped_column(Text, nullable=False)
+    status: Mapped[str] = mapped_column(String(50), default="PENDING")  # 'PENDING', 'ACCEPTED', 'REJECTED', 'MODIFIED'
+    teacher_notes: Mapped[Optional[str]] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utc_now)
+
 
