@@ -47,14 +47,14 @@ async def seed_demo_classroom(
     c_info = data["classroom"]
     stmt = select(Classroom).where(
         Classroom.organisation_id == organisation_id,
-        Classroom.name == c_info["name"],
+        Classroom.name.in_([c_info["name"], "Grade 8 Mathematics (Period 3)", "JSS 2 Mathematics (Period 3)"]),
     )
     res = await session.execute(stmt)
-    classroom = res.scalar_one_or_none()
+    existing_classrooms = res.scalars().all()
 
-    if classroom:
-        # Delete existing demo classroom to allow clean re-seed
-        await session.delete(classroom)
+    for old_c in existing_classrooms:
+        await session.delete(old_c)
+    if existing_classrooms:
         await session.flush()
 
     classroom = Classroom(

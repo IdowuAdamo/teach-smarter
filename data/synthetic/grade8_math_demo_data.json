@@ -1,8 +1,8 @@
 {
   "classroom": {
-    "name": "Grade 8 Mathematics (Period 3)",
+    "name": "JSS 2 Mathematics (Period 3)",
     "subject": "Mathematics",
-    "grade_level": "Grade 8",
+    "grade_level": "JSS 2",
     "academic_year": "2026-2027",
     "total_students": 25
   },
@@ -127,7 +127,7 @@
       "first_name": "Chloe",
       "last_name": "Adams",
       "guardian_name": "Robert Adams",
-      "guardian_email": "robert.adams@example.com",
+      "guardian_email": "robert.adams@example.ng",
       "preferred_language": "en",
       "profile_type": "high_performer",
       "history": [
@@ -277,7 +277,7 @@
       "first_name": "Sarah",
       "last_name": "Jenkins",
       "guardian_name": "Patricia Jenkins",
-      "guardian_email": "patricia.j@example.com",
+      "guardian_email": "patricia.j@example.ng",
       "preferred_language": "en",
       "profile_type": "breakthrough",
       "history": [
@@ -427,7 +427,7 @@
       "first_name": "Marcus",
       "last_name": "Vance",
       "guardian_name": "Angela Vance",
-      "guardian_email": "angela.vance@example.org",
+      "guardian_email": "angela.vance@example.ng",
       "preferred_language": "en",
       "profile_type": "declining",
       "history": [
@@ -577,7 +577,7 @@
       "first_name": "David",
       "last_name": "Okafor",
       "guardian_name": "Chinedu Okafor",
-      "guardian_email": "c.okafor@example.com",
+      "guardian_email": "c.okafor@example.ng",
       "preferred_language": "en",
       "profile_type": "struggling",
       "history": [
@@ -724,11 +724,11 @@
     },
     {
       "student_number": "STU-805",
-      "first_name": "Mateo",
-      "last_name": "Alvarez",
-      "guardian_name": "Elena Alvarez",
-      "guardian_email": "elena.alvarez@example.es",
-      "preferred_language": "es",
+      "first_name": "Babatunde",
+      "last_name": "Adeyemi",
+      "guardian_name": "Funke Adeyemi",
+      "guardian_email": "funke.adeyemi@example.ng",
+      "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [
         {
@@ -1024,10 +1024,10 @@
     },
     {
       "student_number": "STU-807",
-      "first_name": "Liam",
-      "last_name": "Smith",
-      "guardian_name": "Laura Smith",
-      "guardian_email": "laura.smith@example.com",
+      "first_name": "Chinedu",
+      "last_name": "Eze",
+      "guardian_name": "Ngozi Eze",
+      "guardian_email": "ngozi.eze@example.ng",
       "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [
@@ -1174,10 +1174,10 @@
     },
     {
       "student_number": "STU-808",
-      "first_name": "Emma",
-      "last_name": "Johnson",
-      "guardian_name": "Keith Johnson",
-      "guardian_email": "kjohnson@example.com",
+      "first_name": "Zainab",
+      "last_name": "Usman",
+      "guardian_name": "Mustapha Usman",
+      "guardian_email": "m.usman@example.ng",
       "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [
@@ -1327,7 +1327,7 @@
       "first_name": "Noah",
       "last_name": "Williams",
       "guardian_name": "Samantha Williams",
-      "guardian_email": "swilliams@example.com",
+      "guardian_email": "swilliams@example.ng",
       "preferred_language": "en",
       "profile_type": "high_performer",
       "history": [
@@ -1474,10 +1474,10 @@
     },
     {
       "student_number": "STU-810",
-      "first_name": "Olivia",
-      "last_name": "Brown",
-      "guardian_name": "Michael Brown",
-      "guardian_email": "mbrown@example.com",
+      "first_name": "Omotola",
+      "last_name": "Adeleke",
+      "guardian_name": "Adewale Adeleke",
+      "guardian_email": "a.adeleke@example.ng",
       "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [
@@ -1624,10 +1624,10 @@
     },
     {
       "student_number": "STU-811",
-      "first_name": "Ethan",
-      "last_name": "Jones",
-      "guardian_name": "Rachel Jones",
-      "guardian_email": "rjones@example.com",
+      "first_name": "Emeka",
+      "last_name": "Okonkwo",
+      "guardian_name": "Chioma Okonkwo",
+      "guardian_email": "c.okonkwo@example.ng",
       "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [
@@ -1774,11 +1774,11 @@
     },
     {
       "student_number": "STU-812",
-      "first_name": "Sophia",
-      "last_name": "Garcia",
-      "guardian_name": "Carlos Garcia",
-      "guardian_email": "carlos.g@example.es",
-      "preferred_language": "es",
+      "first_name": "Folashade",
+      "last_name": "Ogundipe",
+      "guardian_name": "Olusegun Ogundipe",
+      "guardian_email": "o.ogundipe@example.ng",
+      "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [
         {
@@ -1924,10 +1924,10 @@
     },
     {
       "student_number": "STU-813",
-      "first_name": "Mason",
-      "last_name": "Miller",
-      "guardian_name": "Brenda Miller",
-      "guardian_email": "bmiller@example.com",
+      "first_name": "Osasere",
+      "last_name": "Igbinosa",
+      "guardian_name": "Ehigie Igbinosa",
+      "guardian_email": "e.igbinosa@example.ng",
       "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [
@@ -2077,7 +2077,7 @@
       "first_name": "Isabella",
       "last_name": "Davis",
       "guardian_name": "James Davis",
-      "guardian_email": "jdavis@example.com",
+      "guardian_email": "jdavis@example.ng",
       "preferred_language": "en",
       "profile_type": "high_performer",
       "history": [
@@ -2224,10 +2224,10 @@
     },
     {
       "student_number": "STU-815",
-      "first_name": "Lucas",
-      "last_name": "Rodriguez",
-      "guardian_name": "Maria Rodriguez",
-      "guardian_email": "mrodriguez@example.com",
+      "first_name": "Tariq",
+      "last_name": "Mohammed",
+      "guardian_name": "Halima Mohammed",
+      "guardian_email": "h.mohammed@example.ng",
       "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [
@@ -2374,10 +2374,10 @@
     },
     {
       "student_number": "STU-816",
-      "first_name": "Mia",
-      "last_name": "Martinez",
-      "guardian_name": "Jorge Martinez",
-      "guardian_email": "jorge.m@example.com",
+      "first_name": "Nkechi",
+      "last_name": "Nnamdi",
+      "guardian_name": "Kalu Nnamdi",
+      "guardian_email": "k.nnamdi@example.ng",
       "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [
@@ -2525,9 +2525,9 @@
     {
       "student_number": "STU-817",
       "first_name": "Aiden",
-      "last_name": "Hernandez",
-      "guardian_name": "Sofia Hernandez",
-      "guardian_email": "shernandez@example.com",
+      "last_name": "Okoro",
+      "guardian_name": "Sofia Okoro",
+      "guardian_email": "s.okoro@example.ng",
       "preferred_language": "en",
       "profile_type": "struggling",
       "history": [
@@ -2674,10 +2674,10 @@
     },
     {
       "student_number": "STU-818",
-      "first_name": "Harper",
-      "last_name": "Lopez",
-      "guardian_name": "Daniel Lopez",
-      "guardian_email": "dlopez@example.com",
+      "first_name": "Halimat",
+      "last_name": "Abubakar",
+      "guardian_name": "Abubakar Garba",
+      "guardian_email": "a.garba@example.ng",
       "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [
@@ -2825,9 +2825,9 @@
     {
       "student_number": "STU-819",
       "first_name": "Elijah",
-      "last_name": "Gonzalez",
-      "guardian_name": "Teresa Gonzalez",
-      "guardian_email": "tgonzalez@example.com",
+      "last_name": "Danjuma",
+      "guardian_name": "Grace Danjuma",
+      "guardian_email": "g.danjuma@example.ng",
       "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [
@@ -2974,10 +2974,10 @@
     },
     {
       "student_number": "STU-820",
-      "first_name": "Evelyn",
-      "last_name": "Wilson",
-      "guardian_name": "Mark Wilson",
-      "guardian_email": "mwilson@example.com",
+      "first_name": "Yetunde",
+      "last_name": "Sowore",
+      "guardian_name": "Bamidele Sowore",
+      "guardian_email": "b.sowore@example.ng",
       "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [
@@ -3124,10 +3124,10 @@
     },
     {
       "student_number": "STU-821",
-      "first_name": "James",
-      "last_name": "Anderson",
-      "guardian_name": "Nancy Anderson",
-      "guardian_email": "nanderson@example.com",
+      "first_name": "Kelechi",
+      "last_name": "Amadi",
+      "guardian_name": "Uche Amadi",
+      "guardian_email": "u.amadi@example.ng",
       "preferred_language": "en",
       "profile_type": "high_performer",
       "history": [
@@ -3425,9 +3425,9 @@
     {
       "student_number": "STU-823",
       "first_name": "Benjamin",
-      "last_name": "Thomas",
-      "guardian_name": "Paul Thomas",
-      "guardian_email": "pthomas@example.com",
+      "last_name": "Ojo",
+      "guardian_name": "Taiwo Ojo",
+      "guardian_email": "t.ojo@example.ng",
       "preferred_language": "en",
       "profile_type": "struggling",
       "history": [
@@ -3574,10 +3574,10 @@
     },
     {
       "student_number": "STU-824",
-      "first_name": "Charlotte",
-      "last_name": "Taylor",
-      "guardian_name": "Lisa Taylor",
-      "guardian_email": "ltaylor@example.com",
+      "first_name": "Blessing",
+      "last_name": "Akpan",
+      "guardian_name": "Effiong Akpan",
+      "guardian_email": "e.akpan@example.ng",
       "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [
@@ -3724,10 +3724,10 @@
     },
     {
       "student_number": "STU-825",
-      "first_name": "Henry",
-      "last_name": "Moore",
-      "guardian_name": "Diana Moore",
-      "guardian_email": "dmoore@example.com",
+      "first_name": "Dapo",
+      "last_name": "Falana",
+      "guardian_name": "Olu Falana",
+      "guardian_email": "o.falana@example.ng",
       "preferred_language": "en",
       "profile_type": "mid_tier",
       "history": [

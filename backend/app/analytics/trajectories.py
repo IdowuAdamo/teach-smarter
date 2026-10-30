@@ -30,9 +30,10 @@ class HistoricalRecord:
 class TrajectoryResult:
     student_id: str
     num_assessments: int
-    historical_average: float
+    historical_average: float  # Mean of all assessments
+    prior_baseline_average: float  # Mean of prior assessments excluding latest
     latest_percentage: float
-    score_delta: float  # Latest - Previous
+    score_delta: float  # Latest - Prior Baseline
     linear_slope: Optional[float]
     trajectory_label: str  # 'IMPROVING', 'DECLINING', 'STABLE', 'BREAKTHROUGH', 'INSUFFICIENT_DATA'
     confidence: str  # 'HIGH', 'MODERATE', 'LOW'
@@ -45,22 +46,11 @@ def calculate_student_trajectory(
     history: Sequence[HistoricalRecord],
     min_assessments_required: int = 3,
     breakthrough_threshold: float = 20.0,
-    decline_threshold: float = -15.0,
-    improvement_threshold: float = 12.0,
+    decline_threshold: float = -10.0,
+    improvement_threshold: float = 10.0,
 ) -> TrajectoryResult:
     """
     Compute longitudinal student trajectory from chronological assessment history.
-
-    Args:
-        student_id: Student identifier.
-        history: Chronologically sorted assessment records (oldest to newest).
-        min_assessments_required: Minimum observations before assigning a trend.
-        breakthrough_threshold: Percentage leap defining a breakthrough moment.
-        decline_threshold: Percentage drop defining a decline flag.
-        improvement_threshold: Percentage gain defining an improving trend.
-
-    Returns:
-        TrajectoryResult with evidence-grounded summary.
     """
     n = len(history)
     if n == 0:
@@ -68,6 +58,7 @@ def calculate_student_trajectory(
             student_id=student_id,
             num_assessments=0,
             historical_average=0.0,
+            prior_baseline_average=0.0,
             latest_percentage=0.0,
             score_delta=0.0,
             linear_slope=None,
@@ -79,17 +70,18 @@ def calculate_student_trajectory(
 
     scores = [h.percentage for h in history]
     latest = scores[-1]
-    hist_avg = round(float(np.mean(scores)), 2)
+    hist_avg = round(float(np.mean(scores)), 1)
+    baseline_avg = round(float(np.mean(scores[:-1])), 1) if n > 1 else latest
+    delta_vs_baseline = round(latest - baseline_avg, 1)
 
     if n < min_assessments_required:
-        prev_score = scores[-2] if n > 1 else latest
-        delta = round(latest - prev_score, 2)
         return TrajectoryResult(
             student_id=student_id,
             num_assessments=n,
             historical_average=hist_avg,
+            prior_baseline_average=baseline_avg,
             latest_percentage=latest,
-            score_delta=delta,
+            score_delta=delta_vs_baseline,
             linear_slope=None,
             trajectory_label="INSUFFICIENT_DATA",
             confidence="LOW",
@@ -106,10 +98,6 @@ def calculate_student_trajectory(
     # Fit linear slope: y = mx + c
     slope = round(float(np.polyfit(x, y, 1)[0]), 2)
 
-    baseline_avg = round(float(np.mean(scores[:-1])), 2)
-    delta_vs_baseline = round(latest - baseline_avg, 2)
-    delta_vs_previous = round(latest - scores[-2], 2)
-
     # Classification logic grounded strictly in data
     label = "STABLE"
     confidence = "HIGH" if n >= 4 else "MODERATE"
@@ -121,23 +109,23 @@ def calculate_student_trajectory(
             f"Significant breakthrough detected: Student scored {latest}%, an increase of +{delta_vs_baseline}% "
             f"over their prior {n-1}-test baseline ({baseline_avg}%). Prime candidate for positive reinforcement."
         )
-    elif slope >= 5.0 or (delta_vs_baseline >= improvement_threshold and latest > baseline_avg):
-        label = "IMPROVING"
-        evidence = (
-            f"Consistent upward trajectory across {n} assessments: Average score rose to {latest}% "
-            f"(baseline: {baseline_avg}%, slope: +{slope} pts/test)."
-        )
-    elif delta_vs_baseline <= decline_threshold or slope <= -5.0:
+    elif delta_vs_baseline <= decline_threshold or (slope <= -5.0 and delta_vs_baseline <= -10.0):
         label = "DECLINING"
         evidence = (
             f"Recent downward deviation: Student scored {latest}%, dropping {abs(delta_vs_baseline)}% below "
             f"their established {n-1}-assessment baseline ({baseline_avg}%). Early intervention check recommended."
         )
+    elif (slope >= 5.0 and delta_vs_baseline > 0) or (delta_vs_baseline >= improvement_threshold and latest > baseline_avg):
+        label = "IMPROVING"
+        evidence = (
+            f"Consistent upward trajectory across {n} assessments: Average score rose to {latest}% "
+            f"(baseline: {baseline_avg}%, delta: +{delta_vs_baseline}%, slope: +{slope} pts/test)."
+        )
     else:
         label = "STABLE"
         evidence = (
-            f"Stable academic performance across {n} assessments: Historical average of {hist_avg}% "
-            f"(latest: {latest}%, slope: {slope:+.2f})."
+            f"Stable academic performance across {n} assessments: Prior baseline of {baseline_avg}% "
+            f"(latest: {latest}%, delta: {delta_vs_baseline:+.1f}%)."
         )
 
     limitation = (
@@ -149,12 +137,14 @@ def calculate_student_trajectory(
         student_id=student_id,
         num_assessments=n,
         historical_average=hist_avg,
+        prior_baseline_average=baseline_avg,
         latest_percentage=latest,
-        score_delta=delta_vs_previous,
+        score_delta=delta_vs_baseline,
         linear_slope=slope,
         trajectory_label=label,
         confidence=confidence,
         evidence_summary=evidence,
         limitation_note=limitation,
     )
+
 

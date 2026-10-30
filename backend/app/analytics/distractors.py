@@ -138,19 +138,26 @@ def analyze_distractors(
                 non_functioning.append(opt)
 
             # Check if this distractor was picked more often than the correct key by the upper group
-            if upper_c > upper_correct_count:
+            # AND more frequently by the upper group than by the lower group (positive discrimination towards distractor)
+            if upper_c > upper_correct_count and upper_c > lower_c:
                 anomalous.append(opt)
                 miskey_suspected = True
 
     # Build plain-English summary
     summary_parts = []
     if miskey_suspected:
-        anom_opts = ", ".join(anomalous)
+        details = []
+        for anom_opt in anomalous:
+            opt_data = next((b for b in breakdowns if b.option == anom_opt), None)
+            pct_str = f" ({int(round(opt_data.upper_pct * 100))}%)" if opt_data else ""
+            details.append(f"Option {anom_opt}{pct_str}")
+        key_upper_pct = int(round((upper_correct_count / group_size) * 100)) if group_size > 0 else 0
+        anom_opts_str = ", ".join(details)
         summary_parts.append(
-            f"Potential Answer Key Error: Option {anom_opts} was selected by more top-performing students "
-            f"than the designated correct answer ({norm_correct})."
+            f"Potential Answer Key Error: {anom_opts_str} was overwhelmingly selected by top-performing students compared to the designated key {norm_correct} ({key_upper_pct}%)."
         )
     elif non_functioning:
+
         non_func_str = ", ".join(non_functioning)
         summary_parts.append(
             f"Non-functioning distractors ({non_func_str}): Selected by fewer than 5% of examinees; provides low diagnostic value."

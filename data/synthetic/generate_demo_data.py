@@ -1,5 +1,5 @@
 """
-Synthetic Demo Classroom Generator: Grade 8 Mathematics.
+Synthetic Demo Classroom Generator: JSS 2 Mathematics.
 
 Generates a realistic 25-student cohort with:
 - 3 Historical assessments (Unit 1, Unit 2, Unit 3).
@@ -12,7 +12,7 @@ Generates a realistic 25-student cohort with:
     5. Declining student: Marcus Vance (90% -> 88% -> 61%, specific concept gap in negative exponents).
     6. Consistently high performer: Chloe Adams (96% -> 98% -> 97%).
     7. Student needing support: David Okafor (48% -> 50% -> 46%).
-    8. Non-English guardian contact: Mateo Alvarez (guardian preferred language = 'es').
+    8. English language communication: Babatunde Adeyemi (guardian preferred language = 'en').
 
 Outputs:
 - data/synthetic/grade8_math_demo_data.json
@@ -33,31 +33,31 @@ random.seed(42)
 BASE_DIR = Path(__file__).resolve().parent
 
 STUDENT_ROSTER = [
-    {"first": "Chloe", "last": "Adams", "num": "STU-801", "guardian": "Robert Adams", "email": "robert.adams@example.com", "lang": "en", "type": "high_performer"},
-    {"first": "Sarah", "last": "Jenkins", "num": "STU-802", "guardian": "Patricia Jenkins", "email": "patricia.j@example.com", "lang": "en", "type": "breakthrough"},
-    {"first": "Marcus", "last": "Vance", "num": "STU-803", "guardian": "Angela Vance", "email": "angela.vance@example.org", "lang": "en", "type": "declining"},
-    {"first": "David", "last": "Okafor", "num": "STU-804", "guardian": "Chinedu Okafor", "email": "c.okafor@example.com", "lang": "en", "type": "struggling"},
-    {"first": "Mateo", "last": "Alvarez", "num": "STU-805", "guardian": "Elena Alvarez", "email": "elena.alvarez@example.es", "lang": "es", "type": "mid_tier"},
+    {"first": "Chloe", "last": "Adams", "num": "STU-801", "guardian": "Robert Adams", "email": "robert.adams@example.ng", "lang": "en", "type": "high_performer"},
+    {"first": "Sarah", "last": "Jenkins", "num": "STU-802", "guardian": "Patricia Jenkins", "email": "patricia.j@example.ng", "lang": "en", "type": "breakthrough"},
+    {"first": "Marcus", "last": "Vance", "num": "STU-803", "guardian": "Angela Vance", "email": "angela.vance@example.ng", "lang": "en", "type": "declining"},
+    {"first": "David", "last": "Okafor", "num": "STU-804", "guardian": "Chinedu Okafor", "email": "c.okafor@example.ng", "lang": "en", "type": "struggling"},
+    {"first": "Babatunde", "last": "Adeyemi", "num": "STU-805", "guardian": "Funke Adeyemi", "email": "funke.adeyemi@example.ng", "lang": "en", "type": "mid_tier"},
     {"first": "Aisha", "last": "Bello", "num": "STU-806", "guardian": "Ibrahim Bello", "email": "ibello@example.ng", "lang": "en", "type": "high_performer"},
-    {"first": "Liam", "last": "Smith", "num": "STU-807", "guardian": "Laura Smith", "email": "laura.smith@example.com", "lang": "en", "type": "mid_tier"},
-    {"first": "Emma", "last": "Johnson", "num": "STU-808", "guardian": "Keith Johnson", "email": "kjohnson@example.com", "lang": "en", "type": "mid_tier"},
-    {"first": "Noah", "last": "Williams", "num": "STU-809", "guardian": "Samantha Williams", "email": "swilliams@example.com", "lang": "en", "type": "high_performer"},
-    {"first": "Olivia", "last": "Brown", "num": "STU-810", "guardian": "Michael Brown", "email": "mbrown@example.com", "lang": "en", "type": "mid_tier"},
-    {"first": "Ethan", "last": "Jones", "num": "STU-811", "guardian": "Rachel Jones", "email": "rjones@example.com", "lang": "en", "type": "mid_tier"},
-    {"first": "Sophia", "last": "Garcia", "num": "STU-812", "guardian": "Carlos Garcia", "email": "carlos.g@example.es", "lang": "es", "type": "mid_tier"},
-    {"first": "Mason", "last": "Miller", "num": "STU-813", "guardian": "Brenda Miller", "email": "bmiller@example.com", "lang": "en", "type": "mid_tier"},
-    {"first": "Isabella", "last": "Davis", "num": "STU-814", "guardian": "James Davis", "email": "jdavis@example.com", "lang": "en", "type": "high_performer"},
-    {"first": "Lucas", "last": "Rodriguez", "num": "STU-815", "guardian": "Maria Rodriguez", "email": "mrodriguez@example.com", "lang": "en", "type": "mid_tier"},
-    {"first": "Mia", "last": "Martinez", "num": "STU-816", "guardian": "Jorge Martinez", "email": "jorge.m@example.com", "lang": "en", "type": "mid_tier"},
-    {"first": "Aiden", "last": "Hernandez", "num": "STU-817", "guardian": "Sofia Hernandez", "email": "shernandez@example.com", "lang": "en", "type": "struggling"},
-    {"first": "Harper", "last": "Lopez", "num": "STU-818", "guardian": "Daniel Lopez", "email": "dlopez@example.com", "lang": "en", "type": "mid_tier"},
-    {"first": "Elijah", "last": "Gonzalez", "num": "STU-819", "guardian": "Teresa Gonzalez", "email": "tgonzalez@example.com", "lang": "en", "type": "mid_tier"},
-    {"first": "Evelyn", "last": "Wilson", "num": "STU-820", "guardian": "Mark Wilson", "email": "mwilson@example.com", "lang": "en", "type": "mid_tier"},
-    {"first": "James", "last": "Anderson", "num": "STU-821", "guardian": "Nancy Anderson", "email": "nanderson@example.com", "lang": "en", "type": "high_performer"},
+    {"first": "Chinedu", "last": "Eze", "num": "STU-807", "guardian": "Ngozi Eze", "email": "ngozi.eze@example.ng", "lang": "en", "type": "mid_tier"},
+    {"first": "Zainab", "last": "Usman", "num": "STU-808", "guardian": "Mustapha Usman", "email": "m.usman@example.ng", "lang": "en", "type": "mid_tier"},
+    {"first": "Noah", "last": "Williams", "num": "STU-809", "guardian": "Samantha Williams", "email": "swilliams@example.ng", "lang": "en", "type": "high_performer"},
+    {"first": "Omotola", "last": "Adeleke", "num": "STU-810", "guardian": "Adewale Adeleke", "email": "a.adeleke@example.ng", "lang": "en", "type": "mid_tier"},
+    {"first": "Emeka", "last": "Okonkwo", "num": "STU-811", "guardian": "Chioma Okonkwo", "email": "c.okonkwo@example.ng", "lang": "en", "type": "mid_tier"},
+    {"first": "Folashade", "last": "Ogundipe", "num": "STU-812", "guardian": "Olusegun Ogundipe", "email": "o.ogundipe@example.ng", "lang": "en", "type": "mid_tier"},
+    {"first": "Osasere", "last": "Igbinosa", "num": "STU-813", "guardian": "Ehigie Igbinosa", "email": "e.igbinosa@example.ng", "lang": "en", "type": "mid_tier"},
+    {"first": "Isabella", "last": "Davis", "num": "STU-814", "guardian": "James Davis", "email": "jdavis@example.ng", "lang": "en", "type": "high_performer"},
+    {"first": "Tariq", "last": "Mohammed", "num": "STU-815", "guardian": "Halima Mohammed", "email": "h.mohammed@example.ng", "lang": "en", "type": "mid_tier"},
+    {"first": "Nkechi", "last": "Nnamdi", "num": "STU-816", "guardian": "Kalu Nnamdi", "email": "k.nnamdi@example.ng", "lang": "en", "type": "mid_tier"},
+    {"first": "Aiden", "last": "Okoro", "num": "STU-817", "guardian": "Sofia Okoro", "email": "s.okoro@example.ng", "lang": "en", "type": "struggling"},
+    {"first": "Halimat", "last": "Abubakar", "num": "STU-818", "guardian": "Abubakar Garba", "email": "a.garba@example.ng", "lang": "en", "type": "mid_tier"},
+    {"first": "Elijah", "last": "Danjuma", "num": "STU-819", "guardian": "Grace Danjuma", "email": "g.danjuma@example.ng", "lang": "en", "type": "mid_tier"},
+    {"first": "Yetunde", "last": "Sowore", "num": "STU-820", "guardian": "Bamidele Sowore", "email": "b.sowore@example.ng", "lang": "en", "type": "mid_tier"},
+    {"first": "Kelechi", "last": "Amadi", "num": "STU-821", "guardian": "Uche Amadi", "email": "u.amadi@example.ng", "lang": "en", "type": "high_performer"},
     {"first": "Amara", "last": "Eze", "num": "STU-822", "guardian": "Emeka Eze", "email": "eze.family@example.ng", "lang": "en", "type": "high_performer"},
-    {"first": "Benjamin", "last": "Thomas", "num": "STU-823", "guardian": "Paul Thomas", "email": "pthomas@example.com", "lang": "en", "type": "struggling"},
-    {"first": "Charlotte", "last": "Taylor", "num": "STU-824", "guardian": "Lisa Taylor", "email": "ltaylor@example.com", "lang": "en", "type": "mid_tier"},
-    {"first": "Henry", "last": "Moore", "num": "STU-825", "guardian": "Diana Moore", "email": "dmoore@example.com", "lang": "en", "type": "mid_tier"},
+    {"first": "Benjamin", "last": "Ojo", "num": "STU-823", "guardian": "Taiwo Ojo", "email": "t.ojo@example.ng", "lang": "en", "type": "struggling"},
+    {"first": "Blessing", "last": "Akpan", "num": "STU-824", "guardian": "Effiong Akpan", "email": "e.akpan@example.ng", "lang": "en", "type": "mid_tier"},
+    {"first": "Dapo", "last": "Falana", "num": "STU-825", "guardian": "Olu Falana", "email": "o.falana@example.ng", "lang": "en", "type": "mid_tier"},
 ]
 
 QUESTIONS_SPEC = [
@@ -163,9 +163,9 @@ def generate_unit3_responses(student: Dict[str, Any]) -> List[Dict[str, Any]]:
 def generate_dataset() -> Dict[str, Any]:
     dataset = {
         "classroom": {
-            "name": "Grade 8 Mathematics (Period 3)",
+            "name": "JSS 2 Mathematics (Period 3)",
             "subject": "Mathematics",
-            "grade_level": "Grade 8",
+            "grade_level": "JSS 2",
             "academic_year": "2026-2027",
             "total_students": len(STUDENT_ROSTER),
         },

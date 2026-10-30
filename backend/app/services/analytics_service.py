@@ -147,7 +147,12 @@ async def get_classroom_analytics_summary(
     c_stmt = (
         select(Classroom)
         .options(
-            selectinload(Classroom.students).selectinload(Student.submissions).selectinload(StudentSubmission.assessment),
+            selectinload(Classroom.students)
+            .selectinload(Student.submissions)
+            .selectinload(StudentSubmission.assessment),
+            selectinload(Classroom.students)
+            .selectinload(Student.submissions)
+            .selectinload(StudentSubmission.responses),
             selectinload(Classroom.assessments).selectinload(Assessment.items),
         )
         .where(Classroom.id == classroom_id)
@@ -188,7 +193,9 @@ async def get_classroom_analytics_summary(
             "pseudonym_token": student.pseudonym_token,
             "assessments_completed": traj.num_assessments,
             "latest_percentage": traj.latest_percentage,
+            "prior_baseline_average": traj.prior_baseline_average,
             "historical_average": traj.historical_average,
+            "score_delta": traj.score_delta,
             "trajectory_label": traj.trajectory_label,
             "evidence_summary": traj.evidence_summary,
         })
@@ -204,7 +211,21 @@ async def get_classroom_analytics_summary(
             for sub in student.submissions
             if sub.assessment_id == latest_assessment.id
         ]
-        class_stats = calculate_class_summary(latest_assessment.id, sub_scores)
+        
+        all_item_resps = []
+        for student in classroom.students:
+            sub = next((s for s in student.submissions if s.assessment_id == latest_assessment.id), None)
+            if sub:
+                for qr in sub.responses:
+                    item_obj = next((it for it in latest_assessment.items if it.id == qr.item_id), None)
+                    if item_obj:
+                        all_item_resps.append({
+                            "topic_tag": item_obj.topic_tag,
+                            "item_number": item_obj.item_number,
+                            "is_correct": qr.is_correct,
+                        })
+
+        class_stats = calculate_class_summary(latest_assessment.id, sub_scores, item_responses=all_item_resps)
 
         for item in latest_assessment.items:
             if item.anomaly_flag:
@@ -225,8 +246,17 @@ async def get_classroom_analytics_summary(
             "mean_percentage": class_stats.mean_percentage,
             "median_percentage": class_stats.median_percentage,
             "distribution_bins": class_stats.distribution_bins,
+            "topic_mastery": [
+                {
+                    "topic_tag": tm.topic_tag,
+                    "mastery_percentage": tm.mastery_percentage,
+                    "is_learning_gap": tm.is_learning_gap,
+                }
+                for tm in class_stats.topic_mastery
+            ],
             "flagged_questions": flagged_questions,
         }
+
 
     return {
         "classroom_id": classroom.id,

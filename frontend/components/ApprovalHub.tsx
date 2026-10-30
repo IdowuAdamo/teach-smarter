@@ -1,14 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import { Check, Edit3, Send, Sparkles, Globe, HeartHandshake, AlertCircle, RefreshCw } from "lucide-react";
+import { Check, Edit3, Send, Sparkles, Globe, AlertCircle, RefreshCw } from "lucide-react";
+
+export type AnswerOption = "A" | "B" | "C" | "D";
+export type LocaleCode = "EN";
 
 export interface DraftMessage {
   id: string;
   studentName: string;
   guardianName: string;
   guardianEmail: string;
-  language: string;
+  language: LocaleCode;
   category: "BREAKTHROUGH_PRAISE" | "INTERVENTION_NOTICE" | "WEEKLY_UPDATE";
   subject: string;
   body: string;
@@ -20,36 +23,36 @@ const INITIAL_DRAFTS: DraftMessage[] = [
   {
     id: "draft-1",
     studentName: "Sarah Jenkins",
-    guardianName: "Patricia Jenkins",
-    guardianEmail: "patricia.j@example.com",
-    language: "en",
+    guardianName: "Mrs. Patricia Jenkins",
+    guardianEmail: "patricia.j@example.ng",
+    language: "EN",
     category: "BREAKTHROUGH_PRAISE",
-    subject: "Celebrating Sarah's Outstanding Breakthrough in Math!",
-    body: "Dear Mrs. Jenkins,\n\nI wanted to share wonderful news! Sarah achieved an 89% on our latest Unit 3 Math assessment today—a +27% leap over her previous tests. Her understanding of graphing linear equations and slope has truly clicked. We are so proud of her perseverance!",
+    subject: "Celebrating Sarah's Outstanding Breakthrough in Mathematics!",
+    body: "Dear Mrs. Jenkins,\n\nI wanted to share wonderful news! Sarah achieved an 86.7% on our latest Unit 3 Mathematics assessment today—a +28.2% leap over her previous tests (prior baseline: 58.5%). Her understanding of graphing linear equations and slope has truly clicked. We are proud of her perseverance!",
     version: 1,
     status: "PENDING",
   },
   {
     id: "draft-2",
     studentName: "Marcus Vance",
-    guardianName: "Angela Vance",
-    guardianEmail: "angela.vance@example.org",
-    language: "en",
+    guardianName: "Mrs. Angela Vance",
+    guardianEmail: "angela.vance@example.ng",
+    language: "EN",
     category: "INTERVENTION_NOTICE",
     subject: "Update on Marcus: Unit 3 Negative Exponents Support",
-    body: "Dear Ms. Vance,\n\nMarcus continues to be a thoughtful and engaged student in class. On our recent Unit 3 assessment, he scored 61% (down from his usual 88%+ average). His work indicates a specific concept gap in negative exponents, though his linear algebra foundation remains solid. We have arranged targeted 15-minute review sessions next week.",
+    body: "Dear Mrs. Vance,\n\nMarcus continues to be a thoughtful and engaged student in class. On our recent Unit 3 assessment, he scored 73.3% (down -15.7% from his usual 89.0% baseline). His work indicates a specific concept gap in negative exponents, though his linear algebra foundation remains solid. We have arranged targeted 15-minute review sessions next week.",
     version: 1,
     status: "PENDING",
   },
   {
     id: "draft-3",
-    studentName: "Mateo Alvarez",
-    guardianName: "Elena Alvarez",
-    guardianEmail: "elena.alvarez@example.es",
-    language: "es",
+    studentName: "Babatunde Adeyemi",
+    guardianName: "Mrs. Funke Adeyemi",
+    guardianEmail: "funke.adeyemi@example.ng",
+    language: "EN",
     category: "WEEKLY_UPDATE",
-    subject: "Actualización académica: Progreso de Mateo en Matemáticas",
-    body: "Estimada Sra. Alvarez,\n\nLe escribo para informarle sobre el progreso constante de Mateo en Matemáticas. Obtuvo un 74% en la evaluación de la Unidad 3, demostrando un buen dominio de las ecuaciones lineales. Continuaremos reforzando la notación científica durante las próximas dos semanas.",
+    subject: "Academic Progress Update: Babatunde in JSS 2 Mathematics",
+    body: "Dear Mrs. Adeyemi,\n\nI am writing to share an update on Babatunde's steady academic progress in JSS 2 Mathematics. He achieved 73.3% on our recent Unit 3 assessment, demonstrating solid mastery of linear equations. We will continue reinforcing negative exponents and scientific notation over the coming weeks.",
     version: 1,
     status: "PENDING",
   },
@@ -81,7 +84,7 @@ export function ApprovalHub() {
               ...d,
               body: editText,
               version: d.version + 1,
-              status: "EDITED", // Invalidate prior approval!
+              status: "EDITED", // Invalidate prior approval
             }
           : d
       )
@@ -90,22 +93,31 @@ export function ApprovalHub() {
     showNotice("Edits saved. Prior approval voided—re-approval required before sending.");
   };
 
-  const handleToneAdjust = (id: string, modifier: "soften" | "home_tips" | "translate_es") => {
+  const handleToneAdjust = (id: string, modifier: "soften" | "home_tips" | "sms_format") => {
     setDrafts((prev) =>
       prev.map((d) => {
         if (d.id !== id) return d;
         let newBody = d.body;
+
         if (modifier === "soften") {
           newBody = d.body.replace(
-            "down from his usual 88%+ average",
-            "a temporary dip while tackling challenging new algebra concepts"
+            "down -15.7% from his usual 89.0% baseline",
+            "a temporary dip while tackling challenging new algebra and exponent concepts"
           );
         } else if (modifier === "home_tips") {
           newBody +=
-            "\n\nRecommended Home Practice Tip: Spend 10 minutes practicing exponent flip-cards (e.g., 2^-3 = 1/8) or review Khan Academy Module 4.2.";
-        } else if (modifier === "translate_es") {
-          newBody =
-            "Estimada familia,\n\nSarah logró un sobresaliente 89% en nuestra evaluación de Matemáticas, un salto de +27% en comparación con sus exámenes anteriores. ¡Estamos muy orgullosos de su dedicación!";
+            "\n\nRecommended Home Practice Tip: Spend 10 minutes practicing exponent inversion rules (e.g., 5^-2 = 1/25) with exercises from New General Mathematics for JSS Book 2 Chapter 4.";
+        } else if (modifier === "sms_format") {
+          if (d.id === "draft-1") {
+            newBody =
+              "Greenwood Academy: Great news! Sarah Jenkins achieved 86.7% in JSS 2 Math Unit 3 (+28.2% leap). Outstanding breakthrough in linear graphing.";
+          } else if (d.id === "draft-2") {
+            newBody =
+              "Greenwood Academy: Marcus Vance scored 73.3% on JSS 2 Math Unit 3. Targeted 15-min remedial review on negative exponents scheduled next week.";
+          } else if (d.id === "draft-3") {
+            newBody =
+              "Greenwood Academy: Babatunde Adeyemi scored 73.3% on JSS 2 Math Unit 3, demonstrating solid mastery of linear equations.";
+          }
         }
         return {
           ...d,
@@ -115,7 +127,7 @@ export function ApprovalHub() {
         };
       })
     );
-    showNotice("Tone modified with structured AI prompt. Re-approval required.");
+    showNotice("Tone modified with structured English prompt. Prior approval voided—re-approval required.");
   };
 
   const handleSend = (id: string) => {
@@ -130,18 +142,23 @@ export function ApprovalHub() {
     setTimeout(() => setActionNotice(null), 4000);
   };
 
+  const pendingCount = drafts.filter((d) => d.status !== "SENT").length;
+
   return (
-    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden" id="approvals">
+    <div
+      className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden scroll-mt-20 sm:scroll-mt-24"
+      id="approvals"
+    >
       <div className="p-6 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
         <div>
           <h3 className="text-base font-semibold text-slate-900 flex items-center space-x-2">
             <span>Human-in-the-Loop Communication Approval Hub</span>
             <span className="bg-indigo-100 text-indigo-700 text-xs px-2 py-0.5 rounded-full font-bold">
-              {drafts.filter((d) => d.status !== "SENT").length} Pending Review
+              {pendingCount} Pending Review
             </span>
           </h3>
           <p className="text-xs text-slate-500 mt-0.5">
-            Rule 8 Enforced: Zero automated emails sent without verified teacher sign-off. Any edit invalidates previous approval.
+            Rule 8 Enforced: Zero automated communications sent without verified teacher sign-off. Any edit invalidates previous approval.
           </p>
         </div>
 
@@ -150,14 +167,14 @@ export function ApprovalHub() {
             setDrafts(INITIAL_DRAFTS);
             showNotice("Reset all communication drafts to initial queue.");
           }}
-          className="text-xs text-slate-500 hover:text-slate-800 flex items-center space-x-1"
+          className="text-xs text-slate-500 hover:text-slate-800 flex items-center space-x-1 cursor-pointer"
         >
           <RefreshCw className="w-3.5 h-3.5" />
           <span>Reset Queue</span>
         </button>
       </div>
 
-      {actionNotice && (
+      {Boolean(actionNotice) && (
         <div className="bg-indigo-600 text-white text-xs px-6 py-2.5 flex items-center space-x-2 transition animate-fade-in">
           <AlertCircle className="w-4 h-4 flex-shrink-0" />
           <span className="font-medium">{actionNotice}</span>
@@ -196,7 +213,12 @@ export function ApprovalHub() {
                   </span>
                   <div className="flex items-center space-x-1 text-xs text-slate-500">
                     <Globe className="w-3.5 h-3.5 text-slate-400" />
-                    <span className="uppercase font-semibold">{draft.language}</span>
+                    <span
+                      translate="no"
+                      className="notranslate uppercase font-semibold text-slate-700"
+                    >
+                      {draft.language}
+                    </span>
                     <span className="text-slate-300">|</span>
                     <span className="font-mono">v{draft.version}</span>
                   </div>
@@ -222,13 +244,13 @@ export function ApprovalHub() {
                     <div className="flex justify-end space-x-2">
                       <button
                         onClick={() => setEditingId(null)}
-                        className="px-2.5 py-1 text-xs text-slate-600 hover:bg-slate-200 rounded"
+                        className="px-2.5 py-1 text-xs text-slate-600 hover:bg-slate-200 rounded cursor-pointer"
                       >
                         Cancel
                       </button>
                       <button
                         onClick={() => handleSaveEdit(draft.id)}
-                        className="px-3 py-1 text-xs bg-indigo-600 text-white font-medium rounded hover:bg-indigo-700"
+                        className="px-3 py-1 text-xs bg-indigo-600 text-white font-medium rounded hover:bg-indigo-700 cursor-pointer"
                       >
                         Save Version
                       </button>
@@ -240,31 +262,31 @@ export function ApprovalHub() {
                   </div>
                 )}
 
-                {/* 1-Click Tone Modifiers */}
+                {/* 1-Click English Tone Modifiers */}
                 {!isSent && !isEditing && (
                   <div className="mt-3 pt-3 border-t border-slate-100">
                     <p className="text-[11px] font-semibold text-slate-500 mb-1.5 flex items-center space-x-1">
                       <Sparkles className="w-3 h-3 text-amber-500" />
-                      <span>1-Click Tone Modifiers:</span>
+                      <span>1-Click Tone Modifiers (English):</span>
                     </p>
                     <div className="flex flex-wrap gap-1.5">
                       <button
                         onClick={() => handleToneAdjust(draft.id, "soften")}
-                        className="text-[11px] px-2 py-0.5 rounded bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 border border-slate-200 transition"
+                        className="text-[11px] px-2 py-0.5 rounded bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 border border-slate-200 transition cursor-pointer"
                       >
                         Soften Tone
                       </button>
                       <button
                         onClick={() => handleToneAdjust(draft.id, "home_tips")}
-                        className="text-[11px] px-2 py-0.5 rounded bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 border border-slate-200 transition"
+                        className="text-[11px] px-2 py-0.5 rounded bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 border border-slate-200 transition cursor-pointer"
                       >
                         + Home Tips
                       </button>
                       <button
-                        onClick={() => handleToneAdjust(draft.id, "translate_es")}
-                        className="text-[11px] px-2 py-0.5 rounded bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 border border-slate-200 transition"
+                        onClick={() => handleToneAdjust(draft.id, "sms_format")}
+                        className="text-[11px] px-2 py-0.5 rounded bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 border border-slate-200 transition cursor-pointer"
                       >
-                        Traducción ES
+                        Concise SMS Summary
                       </button>
                     </div>
                   </div>
@@ -276,7 +298,7 @@ export function ApprovalHub() {
                 <button
                   onClick={() => handleStartEdit(draft)}
                   disabled={isSent || isEditing}
-                  className="text-xs text-slate-600 hover:text-slate-900 flex items-center space-x-1 disabled:opacity-40"
+                  className="text-xs text-slate-600 hover:text-slate-900 flex items-center space-x-1 disabled:opacity-40 cursor-pointer"
                 >
                   <Edit3 className="w-3.5 h-3.5" />
                   <span>Edit</span>
@@ -291,7 +313,7 @@ export function ApprovalHub() {
                   ) : isApproved ? (
                     <button
                       onClick={() => handleSend(draft.id)}
-                      className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition"
+                      className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition cursor-pointer"
                     >
                       <Send className="w-3.5 h-3.5" />
                       <span>Send Now</span>
@@ -299,7 +321,7 @@ export function ApprovalHub() {
                   ) : (
                     <button
                       onClick={() => handleApprove(draft.id)}
-                      className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition"
+                      className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition cursor-pointer"
                     >
                       <Check className="w-3.5 h-3.5" />
                       <span>Approve</span>
@@ -314,4 +336,3 @@ export function ApprovalHub() {
     </div>
   );
 }
-

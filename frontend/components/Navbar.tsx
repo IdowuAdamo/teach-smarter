@@ -1,15 +1,49 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
-import { GraduationCap, ShieldCheck, Sparkles, BarChart2, Inbox, UploadCloud } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { GraduationCap, ShieldCheck, Sparkles, BarChart2, Inbox, Users2, Activity } from "lucide-react";
 
 export function Navbar() {
+  const [activeSection, setActiveSection] = useState<string>("overview");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["overview", "validity", "trajectories", "recommendations", "approvals"];
+      const scrollPos = window.scrollY + 200;
+
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPos >= top && scrollPos < top + height) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    setActiveSection(id);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <header className="border-b bg-white sticky top-0 z-50">
+    <header className="border-b bg-white sticky top-0 z-50 shadow-2xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="flex items-center space-x-8">
-          <Link href="/" className="flex items-center space-x-2">
+          <button
+            onClick={() => scrollToSection("overview")}
+            className="flex items-center space-x-2 text-left cursor-pointer"
+          >
             <div className="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center text-white shadow-sm">
               <GraduationCap className="w-5 h-5" />
             </div>
@@ -17,42 +51,68 @@ export function Navbar() {
               <span className="text-lg font-bold tracking-tight text-slate-900">TeachSmarter</span>
               <span className="text-xs block text-slate-500 font-medium leading-none">AI Co-pilot with Teacher Oversight</span>
             </div>
-          </Link>
+          </button>
 
           <nav className="hidden md:flex space-x-1">
-            <Link
-              href="/"
-              className="px-3 py-2 rounded-md text-sm font-medium text-slate-900 hover:bg-slate-100 flex items-center space-x-1.5"
+            <button
+              onClick={() => scrollToSection("overview")}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${
+                activeSection === "overview"
+                  ? "bg-slate-100 text-indigo-700 font-bold"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+              }`}
             >
               <BarChart2 className="w-4 h-4 text-indigo-600" />
               <span>Overview</span>
-            </Link>
-            <Link
-              href="#validity"
-              className="px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 flex items-center space-x-1.5"
+            </button>
+
+            <button
+              onClick={() => scrollToSection("validity")}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${
+                activeSection === "validity"
+                  ? "bg-slate-100 text-indigo-700 font-bold"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+              }`}
             >
               <Sparkles className="w-4 h-4 text-amber-500" />
               <span>Psychometrics</span>
-            </Link>
-            <Link
-              href="#trajectories"
-              className="px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 flex items-center space-x-1.5"
+            </button>
+
+            <button
+              onClick={() => scrollToSection("trajectories")}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${
+                activeSection === "trajectories"
+                  ? "bg-slate-100 text-indigo-700 font-bold"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+              }`}
             >
+              <Activity className="w-4 h-4 text-blue-500" />
               <span>Student Diagnostics</span>
-            </Link>
-            <Link
-              href="#recommendations"
-              className="px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 flex items-center space-x-1.5"
+            </button>
+
+            <button
+              onClick={() => scrollToSection("recommendations")}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${
+                activeSection === "recommendations"
+                  ? "bg-slate-100 text-indigo-700 font-bold"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+              }`}
             >
+              <Users2 className="w-4 h-4 text-purple-500" />
               <span>Teaching Strategy</span>
-            </Link>
-            <Link
-              href="#approvals"
-              className="px-3 py-2 rounded-md text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 flex items-center space-x-1.5"
+            </button>
+
+            <button
+              onClick={() => scrollToSection("approvals")}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${
+                activeSection === "approvals"
+                  ? "bg-slate-100 text-indigo-700 font-bold"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+              }`}
             >
               <Inbox className="w-4 h-4 text-emerald-600" />
               <span>Approval Hub</span>
-            </Link>
+            </button>
           </nav>
         </div>
 
@@ -68,7 +128,7 @@ export function Navbar() {
             </div>
             <div className="hidden sm:block text-left text-xs">
               <p className="font-semibold text-slate-900">Demo Teacher</p>
-              <p className="text-slate-500">Greenwood Academy</p>
+              <p className="text-slate-500">Greenwood Academy, Lagos</p>
             </div>
           </div>
         </div>
@@ -76,4 +136,3 @@ export function Navbar() {
     </header>
   );
 }
-
