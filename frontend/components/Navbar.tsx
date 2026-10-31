@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { GraduationCap, ShieldCheck, Sparkles, BarChart2, Inbox, Users2, Activity } from "lucide-react";
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 export function Navbar() {
   const [activeSection, setActiveSection] = useState<string>("overview");
@@ -56,11 +57,10 @@ export function Navbar() {
           <nav className="hidden md:flex space-x-1">
             <button
               onClick={() => scrollToSection("overview")}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${
-                activeSection === "overview"
+              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${activeSection === "overview"
                   ? "bg-slate-100 text-indigo-700 font-bold"
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-              }`}
+                }`}
             >
               <BarChart2 className="w-4 h-4 text-indigo-600" />
               <span>Overview</span>
@@ -68,11 +68,10 @@ export function Navbar() {
 
             <button
               onClick={() => scrollToSection("validity")}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${
-                activeSection === "validity"
+              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${activeSection === "validity"
                   ? "bg-slate-100 text-indigo-700 font-bold"
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-              }`}
+                }`}
             >
               <Sparkles className="w-4 h-4 text-amber-500" />
               <span>Psychometrics</span>
@@ -80,11 +79,10 @@ export function Navbar() {
 
             <button
               onClick={() => scrollToSection("trajectories")}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${
-                activeSection === "trajectories"
+              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${activeSection === "trajectories"
                   ? "bg-slate-100 text-indigo-700 font-bold"
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-              }`}
+                }`}
             >
               <Activity className="w-4 h-4 text-blue-500" />
               <span>Student Diagnostics</span>
@@ -92,11 +90,10 @@ export function Navbar() {
 
             <button
               onClick={() => scrollToSection("recommendations")}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${
-                activeSection === "recommendations"
+              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${activeSection === "recommendations"
                   ? "bg-slate-100 text-indigo-700 font-bold"
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-              }`}
+                }`}
             >
               <Users2 className="w-4 h-4 text-purple-500" />
               <span>Teaching Strategy</span>
@@ -104,11 +101,10 @@ export function Navbar() {
 
             <button
               onClick={() => scrollToSection("approvals")}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${
-                activeSection === "approvals"
+              className={`px-3 py-2 rounded-md text-sm font-medium transition flex items-center space-x-1.5 cursor-pointer ${activeSection === "approvals"
                   ? "bg-slate-100 text-indigo-700 font-bold"
                   : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
-              }`}
+                }`}
             >
               <Inbox className="w-4 h-4 text-emerald-600" />
               <span>Approval Hub</span>
@@ -122,15 +118,30 @@ export function Navbar() {
             <span>HITL Enforced (Demo Mode)</span>
           </div>
 
-          <div className="flex items-center space-x-2 pl-2 border-l border-slate-200">
-            <div className="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs font-medium">
-              DT
+          <SignedOut>
+            <div className="flex items-center space-x-2 pl-2 border-l border-slate-200">
+              <SignInButton mode="modal">
+                <button className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 transition cursor-pointer">
+                  Sign In
+                </button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <button className="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 shadow-xs transition cursor-pointer">
+                  Sign Up
+                </button>
+              </SignUpButton>
             </div>
-            <div className="hidden sm:block text-left text-xs">
-              <p className="font-semibold text-slate-900">Demo Teacher</p>
-              <p className="text-slate-500">Greenwood Academy, Lagos</p>
+          </SignedOut>
+
+          <SignedIn>
+            <div className="flex items-center space-x-2.5 pl-2 border-l border-slate-200">
+              <UserButton />
+              <div className="hidden sm:block text-left text-xs">
+                <p className="font-semibold text-slate-900 leading-tight">Teacher Account</p>
+                <p className="text-[11px] text-slate-500">Greenwood Academy, Lagos</p>
+              </div>
             </div>
-          </div>
+          </SignedIn>
         </div>
       </div>
     </header>

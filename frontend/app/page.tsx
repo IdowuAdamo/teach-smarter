@@ -43,29 +43,42 @@ export default function DashboardPage() {
     setLoading(true);
     try {
       // 1. Fetch classrooms
-      const cRes = await fetch("http://127.0.0.1:8000/api/v1/classrooms");
+      const cRes = await fetch("http://127.0.0.1:8000/api/v1/classrooms", {
+        signal: AbortSignal.timeout(10000),
+      });
+      if (!cRes.ok) throw new Error(`HTTP error ${cRes.status}`);
       const classrooms = await cRes.json();
 
       let cId = classrooms[0]?.id;
       if (!cId) {
         // Auto-seed if empty
-        const seedRes = await fetch("http://127.0.0.1:8000/api/v1/demo/load", { method: "POST" });
+        const seedRes = await fetch("http://127.0.0.1:8000/api/v1/demo/load", {
+          method: "POST",
+          signal: AbortSignal.timeout(10000),
+        });
         const seedData = await seedRes.json();
         cId = seedData.details.classroom_id;
       }
 
       // 2. Fetch analytics
-      const aRes = await fetch(`http://127.0.0.1:8000/api/v1/classrooms/${cId}/analytics`);
+      const aRes = await fetch(`http://127.0.0.1:8000/api/v1/classrooms/${cId}/analytics`, {
+        signal: AbortSignal.timeout(10000),
+      });
+      if (!aRes.ok) throw new Error(`HTTP error ${aRes.status}`);
       const aData = await aRes.json();
       setAnalytics(aData);
       setStudents(aData.students || []);
 
       // 3. Fetch item psychometrics
-      const unit3Id = aData.latest_assessment?.assessment_id;
-      if (unit3Id) {
-        const iRes = await fetch(`http://127.0.0.1:8000/api/v1/assessments/${unit3Id}/item-analysis`);
-        const iData = await iRes.json();
-        setItems(iData.items || []);
+      const latestId = aData.latest_assessment?.assessment_id;
+      if (latestId) {
+        const iRes = await fetch(`http://127.0.0.1:8000/api/v1/assessments/${latestId}/item-analysis`, {
+          signal: AbortSignal.timeout(10000),
+        });
+        if (iRes.ok) {
+          const iData = await iRes.json();
+          setItems(iData.items || []);
+        }
       }
     } catch (err) {
       console.warn("Using offline fallback demo dataset:", err);
@@ -81,13 +94,25 @@ export default function DashboardPage() {
   const handleResetDemo = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/v1/demo/load", { method: "POST" });
-      const data = await res.json();
+      const res = await fetch("http://127.0.0.1:8000/api/v1/demo/load", {
+        method: "POST",
+        signal: AbortSignal.timeout(12000),
+      });
+      if (!res.ok) {
+        throw new Error(`Reset returned status ${res.status}`);
+      }
+      await res.json();
       setNotification("JSS 2 Math Demo Classroom re-seeded successfully!");
       setTimeout(() => setNotification(null), 4000);
       await loadData();
-    } catch (err) {
-      setNotification("Re-seed completed in local state.");
+    } catch (err: any) {
+      console.error("Reset error:", err);
+      const isTimeout = err?.name === "TimeoutError" || err?.name === "AbortError";
+      setNotification(
+        isTimeout
+          ? "Reset timed out: backend server at http://127.0.0.1:8000 did not respond."
+          : "Re-seed completed in local state."
+      );
       setTimeout(() => setNotification(null), 4000);
     } finally {
       setLoading(false);
@@ -112,18 +137,18 @@ export default function DashboardPage() {
   // Dynamic KPI derivations
   const breakthroughStudents = displayStudents.filter((s) => s.trajectory_label === "BREAKTHROUGH");
   const breakthroughCount = breakthroughStudents.length;
-  const topBreakthrough = breakthroughStudents[0] || { name: "Sarah Jenkins", score_delta: 28.2 };
+  const topBreakthrough = breakthroughStudents.length > 0 ? breakthroughStudents[0] : null;
 
   const decliningStudents = displayStudents.filter((s) => s.trajectory_label === "DECLINING");
   const decliningCount = decliningStudents.length;
 
-  const mostSevereStudent = [...decliningStudents].sort((a, b) => {
+  const mostSevereStudent = decliningStudents.length > 0 ? [...decliningStudents].sort((a, b) => {
     const deltaA =
       a.score_delta ?? (a.latest_percentage - (a.prior_baseline_average ?? a.historical_average));
     const deltaB =
       b.score_delta ?? (b.latest_percentage - (b.prior_baseline_average ?? b.historical_average));
     return deltaA - deltaB;
-  })[0] || { name: "Elijah Danjuma", score_delta: -49.5 };
+  })[0] : null;
 
   const anomalyItems = displayItems.filter(
     (i) => Boolean(i.anomaly_flag) || i.discrimination_d < 0.2
@@ -131,18 +156,16 @@ export default function DashboardPage() {
   const anomalyCount = anomalyItems.length;
 
   // Extract topic mastery from API if available or use accurate calculated ground truth
-  const topicMasteryList = analytics?.latest_assessment?.topic_mastery || [
+  const topicMasteryList: any[] = analytics?.latest_assessment?.topic_mastery || [
     { topic_tag: "Solving Linear Equations", mastery_percentage: 76.0, is_learning_gap: false },
     { topic_tag: "Linear Graphing & Slope", mastery_percentage: 64.0, is_learning_gap: false },
     { topic_tag: "Negative Exponents", mastery_percentage: 62.4, is_learning_gap: true },
   ];
 
-  const linearEqTopic =
-    topicMasteryList.find((t: any) => t.topic_tag.includes("Solving Linear"))?.mastery_percentage ?? 76.0;
-  const graphingTopic =
-    topicMasteryList.find((t: any) => t.topic_tag.includes("Graphing"))?.mastery_percentage ?? 64.0;
-  const exponentsTopic =
-    topicMasteryList.find((t: any) => t.topic_tag.includes("Exponents"))?.mastery_percentage ?? 62.4;
+  const gapTopics = topicMasteryList.filter(
+    (t: any) => Boolean(t.is_learning_gap) || Number(t.mastery_percentage ?? 0) < 65.0
+  );
+  const gapCount = gapTopics.length;
 
   return (
     <div
@@ -160,10 +183,10 @@ export default function DashboardPage() {
               <span>Active Classroom: JSS 2 Mathematics (Period 3) - Greenwood Academy, Lagos</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Unit 3: Linear Equations & Exponents
+              {analytics?.latest_assessment?.title || "Unit 3: Linear Equations & Exponents"}
             </h1>
             <p className="text-slate-300 text-sm mt-1 max-w-2xl leading-relaxed">
-              Assessment administered on Oct 27, 2026. Classical item analysis and longitudinal student trajectories
+              Assessment administered on {analytics?.latest_assessment?.date || "Oct 27, 2026"}. Classical item analysis and longitudinal student trajectories
               computed deterministically without LLM hallucination.
             </p>
           </div>
@@ -223,8 +246,10 @@ export default function DashboardPage() {
           <p className="text-2xl font-extrabold text-emerald-700">
             {breakthroughCount} Student{breakthroughCount === 1 ? "" : "s"}
           </p>
-          <p className="text-[11px] text-emerald-600 font-medium mt-0.5">
-            {topBreakthrough.name} (+{topBreakthrough.score_delta !== undefined ? topBreakthrough.score_delta.toFixed(1) : "28.2"}%)
+          <p className="text-[11px] text-emerald-600 font-medium mt-0.5 truncate">
+            {breakthroughCount > 0 && topBreakthrough
+              ? `${topBreakthrough.name} (+${(topBreakthrough.score_delta ?? 0).toFixed(1)}%)`
+              : "No breakthroughs this test"}
           </p>
         </div>
 
@@ -233,12 +258,20 @@ export default function DashboardPage() {
             <span>Early Warnings</span>
             <TrendingDown className="w-4 h-4 text-rose-600" />
           </div>
-          <p className="text-2xl font-extrabold text-rose-700">{decliningCount} Students</p>
+          <p className="text-2xl font-extrabold text-rose-700">
+            {decliningCount} Student{decliningCount === 1 ? "" : "s"}
+          </p>
           <p
             className="text-[11px] text-rose-600 font-medium mt-0.5 truncate"
-            title={`Severe: ${mostSevereStudent.name} (${mostSevereStudent.score_delta !== undefined ? mostSevereStudent.score_delta.toFixed(1) : "-49.5"}%)`}
+            title={
+              decliningCount > 0 && mostSevereStudent
+                ? `Severe: ${mostSevereStudent.name} (${(mostSevereStudent.score_delta ?? 0).toFixed(1)}%)`
+                : "All students on track"
+            }
           >
-            Severe: {mostSevereStudent.name} ({mostSevereStudent.score_delta !== undefined ? mostSevereStudent.score_delta.toFixed(1) : "-49.5"}%)
+            {decliningCount > 0 && mostSevereStudent
+              ? `Severe: ${mostSevereStudent.name} (${(mostSevereStudent.score_delta ?? 0).toFixed(1)}%)`
+              : "All students on track"}
           </p>
         </div>
 
@@ -247,8 +280,21 @@ export default function DashboardPage() {
             <span>Test Anomalies</span>
             <AlertTriangle className="w-4 h-4 text-amber-600" />
           </div>
-          <p className="text-2xl font-extrabold text-amber-700">{anomalyCount} Items</p>
-          <p className="text-[11px] text-amber-600 font-medium mt-0.5">Q7 Miskey, Q12 Negative D, Q14 Flat</p>
+          <p className="text-2xl font-extrabold text-amber-700">
+            {anomalyCount} Item{anomalyCount === 1 ? "" : "s"}
+          </p>
+          <p
+            className="text-[11px] text-amber-600 font-medium mt-0.5 truncate"
+            title={
+              anomalyCount > 0
+                ? anomalyItems.map((i) => `Q${i.item_number} (${i.anomaly_flag || "Low D"})`).join(", ")
+                : "All items within normal bounds"
+            }
+          >
+            {anomalyCount > 0
+              ? anomalyItems.map((i) => `Q${i.item_number} ${i.anomaly_flag || "Low D"}`).slice(0, 3).join(", ")
+              : "All items within normal bounds"}
+          </p>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
@@ -272,56 +318,70 @@ export default function DashboardPage() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h4 className="text-sm font-bold text-slate-900">Curriculum Topic Mastery</h4>
-              <span className="text-[11px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-semibold">
-                1 Systemic Gap
+              <span
+                className={`text-[11px] px-2 py-0.5 rounded font-semibold ${
+                  gapCount > 0
+                    ? "bg-amber-100 text-amber-800"
+                    : "bg-emerald-100 text-emerald-800"
+                }`}
+              >
+                {gapCount > 0
+                  ? `${gapCount} Systemic Gap${gapCount === 1 ? "" : "s"}`
+                  : "All Topics on Track"}
               </span>
             </div>
 
             <div className="space-y-4">
-              <div>
-                <div className="flex justify-between text-xs font-semibold text-slate-700 mb-1">
-                  <span>Solving Linear Equations (Q1-5)</span>
-                  <span className="text-emerald-700">{linearEqTopic.toFixed(1)}% Mastery</span>
-                </div>
-                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                  <div
-                    className="bg-emerald-500 h-2 rounded-full"
-                    style={{ width: `${Math.min(100, linearEqTopic)}%` }}
-                  ></div>
-                </div>
-              </div>
+              {topicMasteryList.map((topic: any, idx: number) => {
+                const isGap = Boolean(topic.is_learning_gap) || Number(topic.mastery_percentage ?? 0) < 65.0;
+                const masteryPct = Number(topic.mastery_percentage ?? 0);
 
-              <div>
-                <div className="flex justify-between text-xs font-semibold text-slate-700 mb-1">
-                  <span>Linear Graphing & Slope (Q6-10)</span>
-                  <span className="text-indigo-700">{graphingTopic.toFixed(1)}% Mastery</span>
-                </div>
-                <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                  <div
-                    className="bg-indigo-500 h-2 rounded-full"
-                    style={{ width: `${Math.min(100, graphingTopic)}%` }}
-                  ></div>
-                </div>
-              </div>
+                if (isGap) {
+                  return (
+                    <div
+                      key={topic.topic_tag || idx}
+                      className="p-3 bg-rose-50 rounded-lg border border-rose-200"
+                    >
+                      <div className="flex justify-between text-xs font-bold text-rose-900 mb-1">
+                        <span className="flex items-center space-x-1 truncate mr-2">
+                          <AlertTriangle className="w-3.5 h-3.5 text-rose-600 flex-shrink-0" />
+                          <span className="truncate">{topic.topic_tag}</span>
+                        </span>
+                        <span className="text-rose-700 font-mono flex-shrink-0">
+                          {masteryPct.toFixed(1)}% Mastery
+                        </span>
+                      </div>
+                      <div className="w-full bg-rose-200 h-2 rounded-full overflow-hidden mb-1.5">
+                        <div
+                          className="bg-rose-600 h-2 rounded-full transition-all duration-500"
+                          style={{ width: `${Math.min(100, Math.max(0, masteryPct))}%` }}
+                        ></div>
+                      </div>
+                      <p className="text-[11px] text-rose-800 leading-snug">
+                        Identified as a systemic classroom learning gap ({masteryPct.toFixed(1)}% mastery, below NERDC 65% benchmark). Targeted review recommended.
+                      </p>
+                    </div>
+                  );
+                }
 
-              <div className="p-3 bg-rose-50 rounded-lg border border-rose-200">
-                <div className="flex justify-between text-xs font-bold text-rose-900 mb-1">
-                  <span className="flex items-center space-x-1">
-                    <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
-                    <span>Negative Exponents (Q11-15)</span>
-                  </span>
-                  <span className="text-rose-700 font-mono">{exponentsTopic.toFixed(1)}% Mastery</span>
-                </div>
-                <div className="w-full bg-rose-200 h-2 rounded-full overflow-hidden mb-1.5">
-                  <div
-                    className="bg-rose-600 h-2 rounded-full"
-                    style={{ width: `${Math.min(100, exponentsTopic)}%` }}
-                  ></div>
-                </div>
-                <p className="text-[11px] text-rose-800 leading-snug">
-                  Identified as a systemic classroom learning gap ({exponentsTopic.toFixed(1)}% mastery, below NERDC 65% benchmark). Exponent inversion rules require targeted review.
-                </p>
-              </div>
+                const barColor = masteryPct >= 75 ? "bg-emerald-500" : "bg-indigo-500";
+                const textBadgeColor = masteryPct >= 75 ? "text-emerald-700" : "text-indigo-700";
+
+                return (
+                  <div key={topic.topic_tag || idx}>
+                    <div className="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+                      <span className="truncate">{topic.topic_tag}</span>
+                      <span className={`${textBadgeColor} ml-2 font-mono flex-shrink-0`}>{masteryPct.toFixed(1)}% Mastery</span>
+                    </div>
+                    <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                      <div
+                        className={`${barColor} h-2 rounded-full transition-all duration-500`}
+                        style={{ width: `${Math.min(100, Math.max(0, masteryPct))}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 

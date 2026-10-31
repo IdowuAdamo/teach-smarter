@@ -15,8 +15,9 @@ export function DataImportModal({
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [inspectData, setInspectData] = useState<any>(null);
-  const [assessmentTitle, setAssessmentTitle] = useState("Unit 3 Math Assessment (Imported)");
+  const [assessmentTitle, setAssessmentTitle] = useState("Unit 4: Geometry, Angles & Plane Mensuration");
   const [mappings, setMappings] = useState<Record<string, string>>({});
+  const [answerKeys, setAnswerKeys] = useState<Record<number, string>>({});
   const [statusMsg, setStatusMsg] = useState<string | null>(null);
 
   if (!isOpen) return null;
@@ -28,6 +29,17 @@ export function DataImportModal({
       setLoading(true);
       setStatusMsg("Inspecting spreadsheet and matching columns deterministically...");
 
+      // Suggest appropriate title based on filename
+      const fname = selected.name.toLowerCase();
+      if (fname.includes("unit4") || fname.includes("unit_4")) {
+        setAssessmentTitle("Unit 4: Geometry, Angles & Plane Mensuration");
+      } else if (fname.includes("unit3") || fname.includes("unit_3")) {
+        setAssessmentTitle("Unit 3: Linear Equations & Exponents");
+      } else {
+        const clean = selected.name.replace(/\.[^/.]+$/, "").replace(/[_-]/g, " ");
+        setAssessmentTitle(clean.charAt(0).toUpperCase() + clean.slice(1));
+      }
+
       try {
         const formData = new FormData();
         formData.append("file", selected);
@@ -35,10 +47,11 @@ export function DataImportModal({
         const res = await fetch("http://127.0.0.1:8000/api/v1/imports/inspect", {
           method: "POST",
           body: formData,
+          signal: AbortSignal.timeout(12000),
         });
 
         if (!res.ok) {
-          throw new Error("Failed to inspect file");
+          throw new Error(`Server returned HTTP ${res.status}`);
         }
 
         const data = await res.json();
@@ -50,9 +63,34 @@ export function DataImportModal({
           initialMap[col.detected_column] = col.suggested_target;
         }
         setMappings(initialMap);
+
+        // Populate Answer Keys (from KEY row if detected, or standard default keys)
+        const keys: Record<number, string> = {};
+        const qCount = data.detected_items_count || 15;
+        const defaultU4Keys: Record<number, string> = {
+          1: "A", 2: "C", 3: "B", 4: "D", 5: "A",
+          6: "B", 7: "D", 8: "A", 9: "C", 10: "B",
+          11: "C", 12: "A", 13: "D", 14: "B", 15: "C",
+        };
+        for (let i = 1; i <= qCount; i++) {
+          if (data.detected_answer_keys && data.detected_answer_keys[i]) {
+            keys[i] = data.detected_answer_keys[i];
+          } else if (fname.includes("unit4")) {
+            keys[i] = defaultU4Keys[i] || "A";
+          } else {
+            keys[i] = "A";
+          }
+        }
+        setAnswerKeys(keys);
+
         setStatusMsg(null);
       } catch (err: any) {
-        setStatusMsg(`Inspection Error: ${err.message}`);
+        const isTimeout = err?.name === "TimeoutError" || err?.name === "AbortError";
+        setStatusMsg(
+          isTimeout
+            ? "Inspection Error: Request timed out. Please verify backend is running at http://127.0.0.1:8000."
+            : `Inspection Error: ${err.message}`
+        );
       } finally {
         setLoading(false);
       }
@@ -66,7 +104,10 @@ export function DataImportModal({
 
     try {
       // Fetch classroom ID
-      const cRes = await fetch("http://127.0.0.1:8000/api/v1/classrooms");
+      const cRes = await fetch("http://127.0.0.1:8000/api/v1/classrooms", {
+        signal: AbortSignal.timeout(10000),
+      });
+      if (!cRes.ok) throw new Error(`Failed to fetch classroom (${cRes.status})`);
       const classrooms = await cRes.json();
       const classroomId = classrooms[0]?.id;
 
@@ -77,16 +118,18 @@ export function DataImportModal({
       const res = await fetch("http://127.0.0.1:8000/api/v1/imports/commit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(15000),
         body: JSON.stringify({
           classroom_id: classroomId,
           assessment_title: assessmentTitle,
           column_mappings: mappings,
           rows_data: inspectData.all_rows,
+          answer_keys: answerKeys,
         }),
       });
 
       if (!res.ok) {
-        throw new Error("Failed to commit import");
+        throw new Error(`Failed to commit import (${res.status})`);
       }
 
       const result = await res.json();
@@ -94,9 +137,14 @@ export function DataImportModal({
       setTimeout(() => {
         onImportComplete();
         onClose();
-      }, 1500);
+      }, 1200);
     } catch (err: any) {
-      setStatusMsg(`Commit Error: ${err.message}`);
+      const isTimeout = err?.name === "TimeoutError" || err?.name === "AbortError";
+      setStatusMsg(
+        isTimeout
+          ? "Commit Error: Request timed out connecting to http://127.0.0.1:8000."
+          : `Commit Error: ${err.message}`
+      );
     } finally {
       setLoading(false);
     }
@@ -195,6 +243,33 @@ export function DataImportModal({
                   ))}
                 </div>
               </div>
+
+              {/* Answer Key Review / Configuration */}
+              {inspectData.detected_items_count > 0 && (
+                <div className="p-3 bg-indigo-50/60 rounded-xl border border-indigo-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="text-xs font-bold text-indigo-950">Assessment Answer Keys ({inspectData.detected_items_count} Items):</h4>
+                    <span className="text-[10px] text-indigo-700 font-medium">Auto-detected from file or adjusted below</span>
+                  </div>
+                  <div className="grid grid-cols-5 sm:grid-cols-8 gap-1.5 max-h-36 overflow-y-auto p-1 bg-white rounded-lg border border-indigo-100">
+                    {Array.from({ length: inspectData.detected_items_count }, (_, i) => i + 1).map((qNum) => (
+                      <div key={qNum} className="flex items-center space-x-1 p-1 bg-slate-50 rounded border border-slate-200 text-xs">
+                        <span className="font-bold text-slate-700 text-[11px]">Q{qNum}:</span>
+                        <select
+                          value={answerKeys[qNum] || "A"}
+                          onChange={(e) => setAnswerKeys({ ...answerKeys, [qNum]: e.target.value })}
+                          className="bg-white border border-slate-300 rounded font-bold text-indigo-700 text-xs px-1 py-0.5 focus:ring-1 focus:ring-indigo-500"
+                        >
+                          <option value="A">A</option>
+                          <option value="B">B</option>
+                          <option value="C">C</option>
+                          <option value="D">D</option>
+                        </select>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div className="flex items-center justify-between pt-4 border-t border-slate-200">
                 <button

@@ -211,6 +211,7 @@ async def inspect_spreadsheet_upload(
         "is_ambiguous": report.is_ambiguous,
         "requires_confirmation": report.requires_confirmation,
         "detected_items_count": report.detected_items_count,
+        "detected_answer_keys": getattr(report, "detected_answer_keys", {}),
         "column_mappings": [
             {
                 "detected_column": m.detected_column,

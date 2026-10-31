@@ -60,6 +60,7 @@ class IngestionReport:
     requires_confirmation: bool
     validation_issues: List[ValidationIssue]
     detected_items_count: int
+    detected_answer_keys: Dict[int, str] = field(default_factory=dict)
 
 
 # Deterministic pattern matchers
@@ -146,11 +147,30 @@ def inspect_dataframe(df: pd.DataFrame, filename: str) -> IngestionReport:
     if not has_student_id:
         has_ambiguity = True
 
+    # Detect self-contained Answer Key row if present in spreadsheet
+    detected_answer_keys: Dict[int, str] = {}
+    id_col = next((m.detected_column for m in mappings if m.suggested_target == "student_number"), None)
+    first_col = next((m.detected_column for m in mappings if m.suggested_target == "first_name"), None)
+    item_cols_detected = [(m.item_number, m.detected_column) for m in mappings if m.suggested_target == "item_response" and m.item_number]
+
+    total_examinees = len(df)
+    for idx, row in df.iterrows():
+        check_val = str(row[id_col]).strip().upper() if id_col and pd.notna(row[id_col]) else ""
+        if not check_val and first_col and pd.notna(row[first_col]):
+            check_val = str(row[first_col]).strip().upper()
+        if check_val in ["KEY", "ANSWER_KEY", "ANSWER KEY", "CORRECT_KEY", "CORRECT KEY", "ANSWER_KEYS"]:
+            total_examinees -= 1  # Exclude key row from student count
+            for it_num, col_name in item_cols_detected:
+                if pd.notna(row[col_name]):
+                    detected_answer_keys[it_num] = str(row[col_name]).strip().upper()
+            break
+
     # Run quick validation on df
     validation_issues = []
-    id_col = next((m.detected_column for m in mappings if m.suggested_target == "student_number"), None)
     if id_col:
-        duplicates = df[df.duplicated(subset=[id_col], keep=False)]
+        # Exclude KEY row from duplicate checks
+        student_rows = df[~df[id_col].astype(str).str.upper().isin(["KEY", "ANSWER_KEY", "ANSWER KEY", "CORRECT_KEY", "CORRECT KEY"])]
+        duplicates = student_rows[student_rows.duplicated(subset=[id_col], keep=False)]
         if not duplicates.empty:
             for idx in duplicates.index:
                 validation_issues.append(
@@ -164,13 +184,14 @@ def inspect_dataframe(df: pd.DataFrame, filename: str) -> IngestionReport:
 
     return IngestionReport(
         filename=filename,
-        total_rows=len(df),
+        total_rows=total_examinees,
         total_columns=len(df.columns),
         mappings=mappings,
         is_ambiguous=has_ambiguity,
         requires_confirmation=has_ambiguity,
         validation_issues=validation_issues,
         detected_items_count=detected_items,
+        detected_answer_keys=detected_answer_keys,
     )
 
 
@@ -214,6 +235,8 @@ async def commit_import_to_database(
     guard_name_col = col_by_target.get("guardian_name")
     guard_email_col = col_by_target.get("guardian_email")
     lang_col = col_by_target.get("language")
+    score_total_col = col_by_target.get("score_total")
+    score_pct_col = col_by_target.get("score_percentage")
 
     # Item question columns
     item_cols: List[Tuple[int, str]] = []
@@ -223,6 +246,18 @@ async def commit_import_to_database(
             item_num = int(m.group(1)) if m else len(item_cols) + 1
             item_cols.append((item_num, col))
     item_cols.sort(key=lambda x: x[0])
+
+    # Pre-scan for an Answer Key row in dataframe
+    key_row_indices = []
+    for idx, row in df.iterrows():
+        check_val = str(row[id_col]).strip().upper() if id_col and pd.notna(row[id_col]) else ""
+        if not check_val and first_col and pd.notna(row[first_col]):
+            check_val = str(row[first_col]).strip().upper()
+        if check_val in ["KEY", "ANSWER_KEY", "ANSWER KEY", "CORRECT_KEY", "CORRECT KEY", "ANSWER_KEYS"]:
+            key_row_indices.append(idx)
+            for item_num, col_name in item_cols:
+                if pd.notna(row[col_name]):
+                    answer_keys[item_num] = str(row[col_name]).strip().upper()
 
     max_score = float(len(item_cols)) if item_cols else 100.0
 
@@ -237,16 +272,28 @@ async def commit_import_to_database(
     session.add(assessment)
     await session.flush()
 
+    def get_topic_for_item(item_idx: int, title: str) -> str:
+        tl = title.lower()
+        if "geometry" in tl or "unit 4" in tl or "unit4" in tl:
+            if item_idx <= 5: return "Angles & Parallel Lines"
+            if item_idx <= 10: return "Triangles & Polygons"
+            return "Perimeter, Area & Plane Mensuration"
+        if "exponent" in tl or "unit 3" in tl or "unit3" in tl:
+            if item_idx <= 5: return "Solving Linear Equations"
+            if item_idx <= 10: return "Linear Graphing & Slope"
+            return "Negative Exponents & Scientific Notation"
+        return "General Mathematics"
+
     # 3. Create Assessment Items
     item_objects: Dict[int, AssessmentItem] = {}
     for item_num, _ in item_cols:
-        correct_key = answer_keys.get(item_num, "A")
+        correct_key = answer_keys.get(item_num) or answer_keys.get(str(item_num)) or "A"
         item = AssessmentItem(
             assessment_id=assessment.id,
             item_number=item_num,
             correct_option=correct_key,
             mark_allocation=1.0,
-            topic_tag="General",
+            topic_tag=get_topic_for_item(item_num, assessment_title),
         )
         session.add(item)
         item_objects[item_num] = item
@@ -257,11 +304,17 @@ async def commit_import_to_database(
     submissions_created = 0
 
     for idx, row in df.iterrows():
+        if idx in key_row_indices:
+            continue
+
         # Determine student number & names
         if id_col and pd.notna(row[id_col]):
             stu_num = str(row[id_col]).strip()
         else:
             stu_num = f"STU-{idx+1:03d}"
+
+        if stu_num.upper() in ["KEY", "ANSWER_KEY", "ANSWER KEY", "CORRECT_KEY", "CORRECT KEY", "ANSWER_KEYS"]:
+            continue
 
         if first_col and last_col and pd.notna(row[first_col]):
             f_name = str(row[first_col]).strip()
@@ -315,7 +368,7 @@ async def commit_import_to_database(
 
         for item_num, col_name in item_cols:
             opt = str(row[col_name]).strip().upper() if pd.notna(row[col_name]) else None
-            correct_key = answer_keys.get(item_num, "A")
+            correct_key = answer_keys.get(item_num) or answer_keys.get(str(item_num)) or "A"
             is_corr = (opt == correct_key)
             score_val = 1.0 if is_corr else 0.0
             total_raw += score_val
@@ -328,7 +381,20 @@ async def commit_import_to_database(
             )
             responses_to_add.append(q_resp)
 
-        pct = round((total_raw / max_score) * 100.0, 2) if max_score > 0 else 0.0
+        # If row explicitly has score_total or score_percentage mapped, use them as authoritative
+        if score_total_col and pd.notna(row[score_total_col]):
+            try:
+                total_raw = float(row[score_total_col])
+            except (ValueError, TypeError):
+                pass
+
+        if score_pct_col and pd.notna(row[score_pct_col]):
+            try:
+                pct = float(row[score_pct_col])
+            except (ValueError, TypeError):
+                pct = round((total_raw / max_score) * 100.0, 2) if max_score > 0 else 0.0
+        else:
+            pct = round((total_raw / max_score) * 100.0, 2) if max_score > 0 else 0.0
 
         submission = StudentSubmission(
             student_id=student.id,
@@ -349,7 +415,7 @@ async def commit_import_to_database(
     return {
         "assessment_id": assessment.id,
         "assessment_title": assessment.title,
-        "students_imported": len(df),
+        "students_imported": len(df) - len(key_row_indices),
         "new_students_created": students_created,
         "submissions_created": submissions_created,
         "questions_count": len(item_cols),

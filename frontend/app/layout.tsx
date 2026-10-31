@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
@@ -16,14 +17,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" translate="no" className="notranslate">
-      <head>
-        <meta name="google" content="notranslate" />
-      </head>
-      <body className="min-h-screen bg-slate-50 antialiased text-slate-900 notranslate">
-        <Navbar />
-        <main>{children}</main>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" translate="no" className="notranslate">
+        <head>
+          <meta name="google" content="notranslate" />
+        </head>
+        <body className="min-h-screen bg-slate-50 antialiased text-slate-900 notranslate">
+          <Navbar />
+          <main>{children}</main>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
