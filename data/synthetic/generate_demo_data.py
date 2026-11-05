@@ -34,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent
 
 STUDENT_ROSTER = [
     {"first": "Chloe", "last": "Adams", "num": "STU-801", "guardian": "Robert Adams", "email": "robert.adams@example.ng", "lang": "en", "type": "high_performer"},
-    {"first": "Sarah", "last": "Jenkins", "num": "STU-802", "guardian": "Patricia Jenkins", "email": "patricia.j@example.ng", "lang": "en", "type": "breakthrough"},
+    {"first": "Sarah", "last": "Jenkins", "num": "STU-802", "guardian": "Idowu Adamo", "email": "idowuadamo2719@gmail.com", "lang": "en", "type": "breakthrough"},
     {"first": "Marcus", "last": "Vance", "num": "STU-803", "guardian": "Angela Vance", "email": "angela.vance@example.ng", "lang": "en", "type": "declining"},
     {"first": "David", "last": "Okafor", "num": "STU-804", "guardian": "Chinedu Okafor", "email": "c.okafor@example.ng", "lang": "en", "type": "struggling"},
     {"first": "Babatunde", "last": "Adeyemi", "num": "STU-805", "guardian": "Funke Adeyemi", "email": "funke.adeyemi@example.ng", "lang": "en", "type": "mid_tier"},

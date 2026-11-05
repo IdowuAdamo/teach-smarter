@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Check, Edit3, Send, Sparkles, Globe, AlertCircle, RefreshCw } from "lucide-react";
+import { Check, Edit3, Send, Sparkles, AlertCircle, RefreshCw, Loader2, UserCheck, Mail, ShieldCheck } from "lucide-react";
+import { API_BASE } from "@/lib/api";
 
-export type AnswerOption = "A" | "B" | "C" | "D";
 export type LocaleCode = "EN";
 
 export interface DraftMessage {
@@ -23,12 +23,12 @@ const INITIAL_DRAFTS: DraftMessage[] = [
   {
     id: "draft-1",
     studentName: "Sarah Jenkins",
-    guardianName: "Mrs. Patricia Jenkins",
-    guardianEmail: "patricia.j@example.ng",
+    guardianName: "Idowu Adamo",
+    guardianEmail: "idowuadamo2719@gmail.com",
     language: "EN",
     category: "BREAKTHROUGH_PRAISE",
     subject: "Celebrating Sarah's Outstanding Breakthrough in Mathematics!",
-    body: "Dear Mrs. Jenkins,\n\nI wanted to share wonderful news! Sarah achieved an 86.7% on our latest Unit 3 Mathematics assessment today—a +28.2% leap over her previous tests (prior baseline: 58.5%). Her understanding of graphing linear equations and slope has truly clicked. We are proud of her perseverance!",
+    body: "Dear Mr. Adamo,\n\nI wanted to share wonderful news! Sarah achieved an 86.7% on our latest Unit 3 Mathematics assessment today—a +28.2% leap over her previous tests (prior baseline: 58.5%). Her understanding of graphing linear equations and slope has truly clicked. We are proud of her perseverance!",
     version: 1,
     status: "PENDING",
   },
@@ -60,15 +60,19 @@ const INITIAL_DRAFTS: DraftMessage[] = [
 
 export function ApprovalHub() {
   const [drafts, setDrafts] = useState<DraftMessage[]>(INITIAL_DRAFTS);
+  const [selectedId, setSelectedId] = useState<string>("draft-1");
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [sendingId, setSendingId] = useState<string | null>(null);
   const [editText, setEditText] = useState<string>("");
   const [actionNotice, setActionNotice] = useState<string | null>(null);
+
+  const selectedDraft = drafts.find((d) => d.id === selectedId) || drafts[0];
 
   const handleApprove = (id: string) => {
     setDrafts((prev) =>
       prev.map((d) => (d.id === id ? { ...d, status: "APPROVED" } : d))
     );
-    showNotice("Draft approved! Verified with content hash. Ready for simulated dispatch.");
+    showNotice("Draft approved. Verified with SHA-256 hash. Ready for Amazon SES dispatch.");
   };
 
   const handleStartEdit = (draft: DraftMessage) => {
@@ -84,13 +88,13 @@ export function ApprovalHub() {
               ...d,
               body: editText,
               version: d.version + 1,
-              status: "EDITED", // Invalidate prior approval
+              status: "EDITED",
             }
           : d
       )
     );
     setEditingId(null);
-    showNotice("Edits saved. Prior approval voided—re-approval required before sending.");
+    showNotice("Edits saved (version incremented). Prior approval voided—re-approval required.");
   };
 
   const handleToneAdjust = (id: string, modifier: "soften" | "home_tips" | "sms_format") => {
@@ -127,211 +131,319 @@ export function ApprovalHub() {
         };
       })
     );
-    showNotice("Tone modified with structured English prompt. Prior approval voided—re-approval required.");
+    showNotice("Tone modified with structured English template. Re-approval required.");
   };
 
-  const handleSend = (id: string) => {
-    setDrafts((prev) =>
-      prev.map((d) => (d.id === id ? { ...d, status: "SENT" } : d))
-    );
-    showNotice("[SES Sandbox Simulation] Verified message dispatched to guardian successfully.");
+  const handleSend = async (id: string) => {
+    const draft = drafts.find((d) => d.id === id);
+    if (!draft) return;
+
+    setSendingId(id);
+    try {
+      const res = await fetch(`${API_BASE}/api/v1/communications/dispatch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          draft_id: draft.id,
+          student_name: draft.studentName,
+          guardian_name: draft.guardianName,
+          recipient_email: draft.guardianEmail,
+          subject: draft.subject,
+          body: draft.body,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.detail || "Dispatch failed");
+      }
+
+      setDrafts((prev) =>
+        prev.map((d) => (d.id === id ? { ...d, status: "SENT" } : d))
+      );
+      showNotice(data.message || `Dispatched live email via Amazon SES to ${draft.guardianEmail}!`);
+    } catch (err: any) {
+      showNotice(`Dispatch Status: ${err.message || "Failed to dispatch email"}`);
+    } finally {
+      setSendingId(null);
+    }
   };
 
   const showNotice = (msg: string) => {
     setActionNotice(msg);
-    setTimeout(() => setActionNotice(null), 4000);
+    setTimeout(() => setActionNotice(null), 5000);
   };
 
   const pendingCount = drafts.filter((d) => d.status !== "SENT").length;
 
   return (
     <div
-      className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden scroll-mt-20 sm:scroll-mt-24"
+      className="bg-white rounded-lg border border-slate-200 shadow-xs overflow-hidden"
       id="approvals"
     >
-      <div className="p-6 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+      {/* Header Bar */}
+      <div className="px-5 py-4 border-b border-slate-200 bg-white flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
-          <h3 className="text-base font-semibold text-slate-900 flex items-center space-x-2">
-            <span>Human-in-the-Loop Communication Approval Hub</span>
-            <span className="bg-indigo-100 text-indigo-700 text-xs px-2 py-0.5 rounded-full font-bold">
+          <div className="flex items-center space-x-2">
+            <h3 className="text-sm font-semibold text-slate-900">Communication Approval Hub</h3>
+            <span className="bg-slate-100 text-slate-700 text-xs px-2 py-0.5 rounded font-medium border border-slate-200">
               {pendingCount} Pending Review
             </span>
-          </h3>
+          </div>
           <p className="text-xs text-slate-500 mt-0.5">
-            Rule 8 Enforced: Zero automated communications sent without verified teacher sign-off. Any edit invalidates previous approval.
+            Rule 8 Enforced: Explicit teacher sign-off required prior to external guardian email dispatch.
           </p>
         </div>
 
         <button
           onClick={() => {
             setDrafts(INITIAL_DRAFTS);
+            setSelectedId("draft-1");
             showNotice("Reset all communication drafts to initial queue.");
           }}
-          className="text-xs text-slate-500 hover:text-slate-800 flex items-center space-x-1 cursor-pointer"
+          className="text-xs text-slate-500 hover:text-slate-800 flex items-center space-x-1 px-2.5 py-1 rounded border border-slate-200 bg-white hover:bg-slate-50 transition cursor-pointer self-start md:self-auto"
         >
-          <RefreshCw className="w-3.5 h-3.5" />
+          <RefreshCw className="w-3 h-3 text-slate-400" />
           <span>Reset Queue</span>
         </button>
       </div>
 
+      {/* Action Notice Banner */}
       {Boolean(actionNotice) && (
-        <div className="bg-indigo-600 text-white text-xs px-6 py-2.5 flex items-center space-x-2 transition animate-fade-in">
-          <AlertCircle className="w-4 h-4 flex-shrink-0" />
-          <span className="font-medium">{actionNotice}</span>
+        <div className="bg-slate-900 text-white text-xs px-5 py-2.5 flex items-center space-x-2 transition animate-fade-in border-b border-slate-800">
+          <AlertCircle className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0" />
+          <span className="font-normal">{actionNotice}</span>
         </div>
       )}
 
-      <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {drafts.map((draft) => {
-          const isEditing = editingId === draft.id;
-          const isApproved = draft.status === "APPROVED";
-          const isSent = draft.status === "SENT";
+      {/* Master-Detail Split Pane */}
+      <div className="flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x divide-slate-200 min-h-[520px]">
+        {/* Left Column: Master Draft Queue (1/3 width) */}
+        <div className="w-full md:w-80 lg:w-96 flex-shrink-0 bg-slate-50/40 flex flex-col">
+          <div className="px-4 py-3 border-b border-slate-200 bg-slate-50/80 flex items-center justify-between">
+            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+              Pending Drafts ({drafts.length})
+            </span>
+            <span className="text-[10px] text-slate-400 font-mono">Select to Review</span>
+          </div>
 
-          return (
-            <div
-              key={draft.id}
-              className={`rounded-xl border transition flex flex-col justify-between ${
-                isSent
-                  ? "bg-slate-50 border-slate-200 opacity-60"
-                  : isApproved
-                  ? "bg-emerald-50/40 border-emerald-300 ring-1 ring-emerald-400"
-                  : "bg-white border-slate-200 hover:shadow-md"
-              }`}
-            >
-              <div className="p-5">
-                <div className="flex items-center justify-between mb-3">
-                  <span
-                    className={`text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                      draft.category === "BREAKTHROUGH_PRAISE"
-                        ? "bg-emerald-100 text-emerald-800"
-                        : draft.category === "INTERVENTION_NOTICE"
-                        ? "bg-amber-100 text-amber-800"
-                        : "bg-blue-100 text-blue-800"
-                    }`}
-                  >
-                    {draft.category.replace("_", " ")}
-                  </span>
-                  <div className="flex items-center space-x-1 text-xs text-slate-500">
-                    <Globe className="w-3.5 h-3.5 text-slate-400" />
-                    <span
-                      translate="no"
-                      className="notranslate uppercase font-semibold text-slate-700"
-                    >
-                      {draft.language}
+          <div className="divide-y divide-slate-100 overflow-y-auto flex-1">
+            {drafts.map((d) => {
+              const isSelected = d.id === selectedDraft.id;
+              const isSent = d.status === "SENT";
+              const isApproved = d.status === "APPROVED";
+
+              return (
+                <button
+                  key={d.id}
+                  onClick={() => {
+                    setSelectedId(d.id);
+                    setEditingId(null);
+                  }}
+                  className={`w-full text-left p-4 transition-colors cursor-pointer relative ${
+                    isSelected
+                      ? "bg-white border-l-2 border-slate-900 shadow-2xs"
+                      : "hover:bg-slate-100/50"
+                  } ${isSent ? "opacity-60" : ""}`}
+                >
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-semibold text-xs text-slate-900 truncate">
+                      {d.studentName}
                     </span>
-                    <span className="text-slate-300">|</span>
-                    <span className="font-mono">v{draft.version}</span>
+                    {isSent ? (
+                      <span className="inline-flex items-center text-[10px] font-medium text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
+                        <Check className="w-2.5 h-2.5 mr-0.5" />
+                        Dispatched
+                      </span>
+                    ) : isApproved ? (
+                      <span className="inline-flex items-center text-[10px] font-medium text-indigo-700 bg-indigo-50 px-1.5 py-0.2 rounded border border-indigo-200">
+                        Approved
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center text-[10px] font-medium text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200">
+                        Pending
+                      </span>
+                    )}
+                  </div>
+
+                  <p className="text-[11px] text-slate-500 truncate mb-1.5">
+                    {d.guardianName} ({d.guardianEmail})
+                  </p>
+
+                  <div className="flex items-center space-x-2">
+                    <span
+                      className={`text-[10px] font-medium px-1.5 py-0.2 rounded ${
+                        d.category === "BREAKTHROUGH_PRAISE"
+                          ? "bg-emerald-50 text-emerald-700 border border-emerald-200/60"
+                          : d.category === "INTERVENTION_NOTICE"
+                          ? "bg-rose-50 text-rose-700 border border-rose-200/60"
+                          : "bg-blue-50 text-blue-700 border border-blue-200/60"
+                      }`}
+                    >
+                      {d.category === "BREAKTHROUGH_PRAISE"
+                        ? "Breakthrough Praise"
+                        : d.category === "INTERVENTION_NOTICE"
+                        ? "Intervention Notice"
+                        : "Weekly Update"}
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-mono">v{d.version}</span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Right Column: Detail Email Review Pane (2/3 width) */}
+        <div className="flex-1 bg-white flex flex-col justify-between overflow-y-auto">
+          {selectedDraft ? (
+            <>
+              <div className="p-6 space-y-4">
+                {/* Email Header Meta */}
+                <div className="p-3.5 rounded-md border border-slate-200 bg-slate-50/50 space-y-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-slate-500 font-medium">To:</span>
+                      <span className="font-semibold text-slate-900">{selectedDraft.guardianName}</span>
+                      <span className="text-slate-500 font-mono text-[11px]">
+                        &lt;{selectedDraft.guardianEmail}&gt;
+                      </span>
+                    </div>
+
+                    <div className="flex items-center space-x-2 text-[11px] text-slate-500 self-start sm:self-auto">
+                      <span className="font-mono">Lang: {selectedDraft.language}</span>
+                      <span>•</span>
+                      <span className="font-mono">Draft v{selectedDraft.version}</span>
+                    </div>
+                  </div>
+
+                  <div className="text-xs pt-2 border-t border-slate-200/60">
+                    <span className="text-slate-500 font-medium">Subject: </span>
+                    <span className="font-semibold text-slate-900">{selectedDraft.subject}</span>
                   </div>
                 </div>
 
-                <h4 className="font-bold text-slate-900 text-sm mb-1">{draft.studentName}</h4>
-                <p className="text-xs text-slate-500 mb-3">
-                  Guardian: {draft.guardianName} ({draft.guardianEmail})
-                </p>
+                {/* 1-Click English Tone Modifiers */}
+                {selectedDraft.status !== "SENT" && editingId !== selectedDraft.id && (
+                  <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                    <span className="text-[11px] font-medium text-slate-500 flex items-center space-x-1 mr-1">
+                      <Sparkles className="w-3 h-3 text-amber-500" />
+                      <span>1-Click Tone Modifiers:</span>
+                    </span>
+                    <button
+                      onClick={() => handleToneAdjust(selectedDraft.id, "soften")}
+                      className="text-[11px] px-2 py-0.5 rounded border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 transition cursor-pointer"
+                    >
+                      Soften Tone
+                    </button>
+                    <button
+                      onClick={() => handleToneAdjust(selectedDraft.id, "home_tips")}
+                      className="text-[11px] px-2 py-0.5 rounded border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 transition cursor-pointer"
+                    >
+                      + Home Tips
+                    </button>
+                    <button
+                      onClick={() => handleToneAdjust(selectedDraft.id, "sms_format")}
+                      className="text-[11px] px-2 py-0.5 rounded border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 transition cursor-pointer"
+                    >
+                      Concise SMS Summary
+                    </button>
+                  </div>
+                )}
 
-                <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-800 mb-3">
-                  {draft.subject}
-                </div>
-
-                {isEditing ? (
+                {/* Email Body Preview / Inline Editor */}
+                {editingId === selectedDraft.id ? (
                   <div className="space-y-2">
                     <textarea
-                      rows={6}
+                      rows={9}
                       value={editText}
                       onChange={(e) => setEditText(e.target.value)}
-                      className="w-full text-xs p-2.5 rounded-lg border border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white"
+                      className="w-full text-xs p-3.5 rounded-md border border-slate-300 focus:outline-none focus:ring-1 focus:ring-slate-900 bg-white font-sans leading-relaxed text-slate-800"
                     />
                     <div className="flex justify-end space-x-2">
                       <button
                         onClick={() => setEditingId(null)}
-                        className="px-2.5 py-1 text-xs text-slate-600 hover:bg-slate-200 rounded cursor-pointer"
+                        className="px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-100 rounded border border-slate-200 cursor-pointer"
                       >
                         Cancel
                       </button>
                       <button
-                        onClick={() => handleSaveEdit(draft.id)}
-                        className="px-3 py-1 text-xs bg-indigo-600 text-white font-medium rounded hover:bg-indigo-700 cursor-pointer"
+                        onClick={() => handleSaveEdit(selectedDraft.id)}
+                        className="px-3 py-1.5 text-xs bg-slate-900 text-white font-medium rounded hover:bg-slate-800 cursor-pointer"
                       >
                         Save Version
                       </button>
                     </div>
                   </div>
                 ) : (
-                  <div className="text-xs text-slate-700 leading-relaxed bg-white p-3 rounded-lg border border-slate-200 whitespace-pre-line mb-3 min-h-[140px]">
-                    {draft.body}
-                  </div>
-                )}
-
-                {/* 1-Click English Tone Modifiers */}
-                {!isSent && !isEditing && (
-                  <div className="mt-3 pt-3 border-t border-slate-100">
-                    <p className="text-[11px] font-semibold text-slate-500 mb-1.5 flex items-center space-x-1">
-                      <Sparkles className="w-3 h-3 text-amber-500" />
-                      <span>1-Click Tone Modifiers (English):</span>
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      <button
-                        onClick={() => handleToneAdjust(draft.id, "soften")}
-                        className="text-[11px] px-2 py-0.5 rounded bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 border border-slate-200 transition cursor-pointer"
-                      >
-                        Soften Tone
-                      </button>
-                      <button
-                        onClick={() => handleToneAdjust(draft.id, "home_tips")}
-                        className="text-[11px] px-2 py-0.5 rounded bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 border border-slate-200 transition cursor-pointer"
-                      >
-                        + Home Tips
-                      </button>
-                      <button
-                        onClick={() => handleToneAdjust(draft.id, "sms_format")}
-                        className="text-[11px] px-2 py-0.5 rounded bg-slate-100 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 border border-slate-200 transition cursor-pointer"
-                      >
-                        Concise SMS Summary
-                      </button>
-                    </div>
+                  <div className="p-4 rounded-md border border-slate-200 bg-slate-50/30 text-xs leading-relaxed text-slate-800 whitespace-pre-line min-h-[220px]">
+                    {selectedDraft.body}
                   </div>
                 )}
               </div>
 
-              {/* Actions Footer */}
-              <div className="px-5 py-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
-                <button
-                  onClick={() => handleStartEdit(draft)}
-                  disabled={isSent || isEditing}
-                  className="text-xs text-slate-600 hover:text-slate-900 flex items-center space-x-1 disabled:opacity-40 cursor-pointer"
-                >
-                  <Edit3 className="w-3.5 h-3.5" />
-                  <span>Edit</span>
-                </button>
+              {/* Bottom Actions Toolbar */}
+              <div className="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+                <div>
+                  {selectedDraft.status !== "SENT" && editingId !== selectedDraft.id && (
+                    <button
+                      onClick={() => handleStartEdit(selectedDraft)}
+                      className="text-xs text-slate-600 hover:text-slate-900 flex items-center space-x-1.5 px-2.5 py-1.5 rounded border border-slate-200 bg-white hover:bg-slate-50 transition cursor-pointer"
+                    >
+                      <Edit3 className="w-3.5 h-3.5 text-slate-400" />
+                      <span>Edit Message</span>
+                    </button>
+                  )}
+                  {selectedDraft.status === "APPROVED" && (
+                    <span className="text-[11px] text-slate-500 font-mono flex items-center space-x-1">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>SHA-256 Hash Verified</span>
+                    </span>
+                  )}
+                </div>
 
                 <div className="flex items-center space-x-2">
-                  {isSent ? (
-                    <span className="text-xs font-semibold text-slate-500 flex items-center space-x-1">
-                      <Check className="w-4 h-4 text-emerald-600" />
-                      <span>Dispatched</span>
+                  {selectedDraft.status === "SENT" ? (
+                    <span className="inline-flex items-center space-x-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-md border border-emerald-200">
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Dispatched via Amazon SES</span>
                     </span>
-                  ) : isApproved ? (
+                  ) : selectedDraft.status === "APPROVED" ? (
                     <button
-                      onClick={() => handleSend(draft.id)}
-                      className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition cursor-pointer"
+                      onClick={() => handleSend(selectedDraft.id)}
+                      disabled={sendingId === selectedDraft.id}
+                      className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-md text-xs font-medium bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition cursor-pointer disabled:opacity-50"
                     >
-                      <Send className="w-3.5 h-3.5" />
-                      <span>Send Now</span>
+                      {sendingId === selectedDraft.id ? (
+                        <>
+                          <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                          <span>Dispatching SES...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-3.5 h-3.5" />
+                          <span>Send Now</span>
+                        </>
+                      )}
                     </button>
                   ) : (
                     <button
-                      onClick={() => handleApprove(draft.id)}
-                      className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition cursor-pointer"
+                      onClick={() => handleApprove(selectedDraft.id)}
+                      className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-md text-xs font-medium bg-slate-900 hover:bg-slate-800 text-white shadow-xs transition cursor-pointer"
                     >
                       <Check className="w-3.5 h-3.5" />
-                      <span>Approve</span>
+                      <span>Approve Draft</span>
                     </button>
                   )}
                 </div>
               </div>
+            </>
+          ) : (
+            <div className="p-8 text-center text-xs text-slate-400">
+              Select a message draft from the queue to review and sign off.
             </div>
-          );
-        })}
+          )}
+        </div>
       </div>
     </div>
   );

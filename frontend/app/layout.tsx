@@ -2,6 +2,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
+import { TabProvider } from "@/context/TabContext";
 
 export const metadata: Metadata = {
   title: "TeachSmarter - AI Co-pilot for Teachers | Greenwood Academy, Lagos",
@@ -23,8 +24,10 @@ export default function RootLayout({
           <meta name="google" content="notranslate" />
         </head>
         <body className="min-h-screen bg-slate-50 antialiased text-slate-900 notranslate">
-          <Navbar />
-          <main>{children}</main>
+          <TabProvider>
+            <Navbar />
+            <main>{children}</main>
+          </TabProvider>
         </body>
       </html>
     </ClerkProvider>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { AlertTriangle, CheckCircle, ChevronDown, ChevronUp } from "lucide-react";
+import { AlertTriangle, CheckCircle, X, ChevronRight, BarChart2 } from "lucide-react";
 
 export type AnswerOption = "A" | "B" | "C" | "D";
 
@@ -318,7 +318,7 @@ export const COMPLETE_15_ITEMS: ItemAnalysisData[] = [
 ];
 
 export function ItemAnalysisTable({ items }: { items: ItemAnalysisData[] }) {
-  const [expandedItem, setExpandedItem] = useState<number | null>(7); // Default expand Q7 anomaly
+  const [selectedItem, setSelectedItem] = useState<ItemAnalysisData | null>(null);
   const [filter, setFilter] = useState<"ALL" | "ANOMALIES" | "FUNCTIONING">("ALL");
 
   const displayItems = items && items.length > 0 ? items : COMPLETE_15_ITEMS;
@@ -338,22 +338,26 @@ export function ItemAnalysisTable({ items }: { items: ItemAnalysisData[] }) {
 
   return (
     <div
-      className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden scroll-mt-20 sm:scroll-mt-24"
+      className="bg-white rounded-lg border border-slate-200 shadow-xs overflow-hidden"
       id="validity"
     >
-      <div className="px-6 py-4 border-b border-slate-200 bg-slate-50 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      {/* Header Bar */}
+      <div className="px-5 py-4 border-b border-slate-200 bg-white flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
-          <h3 className="text-base font-semibold text-slate-900">Classical Item Analysis & Psychometrics</h3>
-          <p className="text-xs text-slate-500">
-            Computed deterministically using Kelley’s 27% rule (D = p_U - p_L) and difficulty index (p = R/N).
+          <h3 className="text-sm font-semibold text-slate-900">Classical Item Analysis & Psychometrics</h3>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Deterministic index calculation using Kelley’s 27% upper/lower group separation rule (D = p_U - p_L).
           </p>
         </div>
 
-        <div className="inline-flex rounded-lg border border-slate-300 p-0.5 bg-white text-xs font-medium">
+        {/* Filter Segmented Control */}
+        <div className="inline-flex rounded-md border border-slate-200 p-0.5 bg-slate-50 text-xs font-medium self-start md:self-auto">
           <button
             onClick={() => setFilter("ALL")}
-            className={`px-3 py-1.5 rounded-md transition cursor-pointer ${
-              filter === "ALL" ? "bg-indigo-600 text-white font-semibold" : "text-slate-600 hover:text-slate-900"
+            className={`px-2.5 py-1 rounded transition-colors cursor-pointer ${
+              filter === "ALL"
+                ? "bg-white text-slate-900 font-semibold shadow-2xs border border-slate-200/60"
+                : "text-slate-600 hover:text-slate-900"
             }`}
           >
             All Items ({displayItems.length})
@@ -361,186 +365,312 @@ export function ItemAnalysisTable({ items }: { items: ItemAnalysisData[] }) {
 
           <button
             onClick={() => setFilter("ANOMALIES")}
-            className={`flex items-center space-x-1 px-3 py-1.5 rounded-md transition cursor-pointer ${
+            className={`flex items-center space-x-1.5 px-2.5 py-1 rounded transition-colors cursor-pointer ${
               filter === "ANOMALIES"
-                ? "bg-rose-600 text-white font-semibold"
+                ? "bg-white text-rose-700 font-semibold shadow-2xs border border-slate-200/60"
                 : "text-rose-700 hover:bg-rose-50"
             }`}
           >
-            <AlertTriangle className="w-3.5 h-3.5" />
-            <span>Investigate Key ({flaggedCount})</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+            <span>Key Anomalies ({flaggedCount})</span>
           </button>
 
           <button
             onClick={() => setFilter("FUNCTIONING")}
-            className={`flex items-center space-x-1 px-3 py-1.5 rounded-md transition cursor-pointer ${
+            className={`flex items-center space-x-1.5 px-2.5 py-1 rounded transition-colors cursor-pointer ${
               filter === "FUNCTIONING"
-                ? "bg-emerald-600 text-white font-semibold"
-                : "text-emerald-700 hover:bg-emerald-50"
+                ? "bg-white text-slate-900 font-semibold shadow-2xs border border-slate-200/60"
+                : "text-slate-600 hover:text-slate-900"
             }`}
           >
-            <CheckCircle className="w-3.5 h-3.5" />
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
             <span>Functioning ({functioningCount})</span>
           </button>
         </div>
       </div>
 
+      {/* Table */}
       <div className="overflow-x-auto">
-        <table className="w-full text-left text-sm text-slate-600">
-          <thead className="bg-slate-100 text-xs uppercase font-semibold text-slate-700 border-b border-slate-200">
+        <table className="w-full text-left text-xs text-slate-600">
+          <thead className="bg-slate-50/75 text-[11px] font-medium uppercase tracking-wider text-slate-500 border-b border-slate-200">
             <tr>
-              <th className="px-4 py-3">Q#</th>
-              <th className="px-4 py-3">Topic</th>
-              <th className="px-4 py-3">Key</th>
-              <th className="px-4 py-3">Difficulty (p)</th>
-              <th className="px-4 py-3">Discrimination (D)</th>
-              <th className="px-4 py-3">Point-Biserial (r)</th>
-              <th className="px-4 py-3">Status / Diagnostic Insight</th>
-              <th className="px-4 py-3 text-right">Details</th>
+              <th className="px-4 py-3 font-medium">Q#</th>
+              <th className="px-4 py-3 font-medium">Topic</th>
+              <th className="px-4 py-3 font-medium text-center">Key</th>
+              <th className="px-4 py-3 font-medium text-right">Difficulty (p)</th>
+              <th className="px-4 py-3 font-medium text-right">Discrimination (D)</th>
+              <th className="px-4 py-3 font-medium text-right">Point-Biserial (r)</th>
+              <th className="px-4 py-3 font-medium">Status</th>
+              <th className="px-4 py-3 font-medium text-right">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-200">
+          <tbody className="divide-y divide-slate-100">
             {filteredItems.map((item) => {
-              const isAnomaly = Boolean(item.anomaly_flag) || item.discrimination_d < 0.2;
-              const isExpanded = expandedItem === item.item_number;
+              const isMiskey = item.anomaly_flag === "MISKEY_SUSPECTED";
+              const isNegativeD = item.discrimination_d < 0;
+              const isPoorD = item.discrimination_d >= 0 && item.discrimination_d < 0.2;
+              const isFlagged = isMiskey || isNegativeD || isPoorD;
 
               return (
-                <React.Fragment key={item.item_number}>
-                  <tr
-                    className={`hover:bg-slate-50 transition cursor-pointer ${
-                      isAnomaly ? "bg-amber-50/40" : ""
+                <tr
+                  key={item.item_number}
+                  className={`hover:bg-slate-50/80 transition-colors cursor-pointer ${
+                    selectedItem?.item_number === item.item_number ? "bg-slate-50" : ""
+                  }`}
+                  onClick={() => setSelectedItem(item)}
+                >
+                  <td className="px-4 py-3 font-semibold text-slate-900 tabular-nums">
+                    #{item.item_number}
+                  </td>
+                  <td className="px-4 py-3 text-slate-700 font-medium">{item.topic_tag}</td>
+                  <td className="px-4 py-3 text-center">
+                    <span
+                      translate="no"
+                      className="notranslate inline-block w-5 h-5 rounded bg-slate-100 text-slate-800 font-mono font-semibold text-center leading-5 text-[11px]"
+                    >
+                      {item.correct_option}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums text-slate-900 font-medium">
+                    {item.difficulty_p.toFixed(2)}
+                  </td>
+                  <td
+                    className={`px-4 py-3 text-right tabular-nums font-medium ${
+                      isNegativeD ? "text-rose-600 font-semibold" : "text-slate-900"
                     }`}
-                    onClick={() => setExpandedItem(isExpanded ? null : item.item_number)}
                   >
-                    <td className="px-4 py-3 font-semibold text-slate-900">#{item.item_number}</td>
-                    <td className="px-4 py-3 text-xs text-slate-700 font-medium">{item.topic_tag}</td>
-                    <td className="px-4 py-3">
-                      <span
-                        translate="no"
-                        className="notranslate inline-block w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 font-bold text-center leading-6 text-xs"
-                      >
-                        {item.correct_option}
+                    {item.discrimination_d > 0 ? "+" : ""}
+                    {item.discrimination_d.toFixed(2)}
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums text-slate-500 font-mono">
+                    {item.point_biserial_r !== null ? item.point_biserial_r.toFixed(2) : "N/A"}
+                  </td>
+                  <td className="px-4 py-3">
+                    {isMiskey ? (
+                      <span className="inline-flex items-center space-x-1.5 text-rose-700 font-medium text-xs">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500 flex-shrink-0"></span>
+                        <span>Key Error Suspected</span>
                       </span>
-                    </td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
-                          item.difficulty_p < 0.35
-                            ? "bg-rose-100 text-rose-800"
-                            : item.difficulty_p > 0.85
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-emerald-100 text-emerald-800"
-                        }`}
-                      >
-                        {item.difficulty_p.toFixed(2)} ({item.difficulty_label})
+                    ) : isNegativeD ? (
+                      <span className="inline-flex items-center space-x-1.5 text-rose-700 font-medium text-xs">
+                        <span className="w-1.5 h-1.5 rounded-full bg-rose-500 flex-shrink-0"></span>
+                        <span>Negative Discrimination</span>
                       </span>
-                    </td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold ${
-                          item.discrimination_d < 0
-                            ? "bg-rose-600 text-white"
-                            : item.discrimination_d < 0.2
-                            ? "bg-amber-100 text-amber-800"
-                            : "bg-emerald-100 text-emerald-800"
-                        }`}
-                      >
-                        {item.discrimination_d > 0 ? "+" : ""}
-                        {item.discrimination_d.toFixed(2)} ({item.discrimination_label})
+                    ) : isPoorD ? (
+                      <span className="inline-flex items-center space-x-1.5 text-amber-700 font-medium text-xs">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
+                        <span>Poor Discrimination</span>
                       </span>
-                    </td>
-                    <td className="px-4 py-3 font-mono text-xs">
-                      {item.point_biserial_r !== null ? item.point_biserial_r.toFixed(2) : "N/A"}
-                    </td>
-                    <td className="px-4 py-3">
-                      {item.anomaly_flag === "MISKEY_SUSPECTED" ? (
-                        <div className="flex items-center space-x-1.5 text-rose-700 text-xs font-semibold">
-                          <AlertTriangle className="w-4 h-4 flex-shrink-0 text-rose-600" />
-                          <span>Potential Answer Key Error</span>
-                        </div>
-                      ) : item.discrimination_d < 0 ? (
-                        <div className="flex items-center space-x-1.5 text-rose-700 text-xs font-semibold">
-                          <AlertTriangle className="w-4 h-4 flex-shrink-0 text-rose-600" />
-                          <span>Negative Discrimination</span>
-                        </div>
-                      ) : item.discrimination_d < 0.2 ? (
-                        <div className="flex items-center space-x-1.5 text-amber-700 text-xs font-medium">
-                          <AlertTriangle className="w-4 h-4 flex-shrink-0 text-amber-600" />
-                          <span>Flat Discrimination</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center space-x-1.5 text-emerald-700 text-xs font-medium">
-                          <CheckCircle className="w-3.5 h-3.5 flex-shrink-0 text-emerald-600" />
-                          <span>Functioning Item</span>
-                        </div>
-                      )}
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      {isExpanded ? (
-                        <ChevronUp className="w-4 h-4 inline text-slate-400" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4 inline text-slate-400" />
-                      )}
-                    </td>
-                  </tr>
-
-                  {isExpanded && (
-                    <tr className="bg-slate-50">
-                      <td colSpan={8} className="px-6 py-4">
-                        <div className="space-y-3">
-                          <div className="p-3 bg-white rounded-lg border border-slate-200 text-xs leading-relaxed text-slate-700">
-                            <span className="font-semibold text-slate-900 block mb-1">Pedagogical Anomaly Report:</span>
-                            <span>{item.plain_english_insight}</span>
-                          </div>
-
-                          <div>
-                            <span className="text-xs font-semibold text-slate-700 block mb-2">
-                              Distractor Analysis (Option Selections by Upper vs Lower 27% Groups):
-                            </span>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                              {item.option_breakdown.map((opt) => (
-                                <div
-                                  key={opt.option}
-                                  className={`p-2.5 rounded-lg border text-xs ${
-                                    opt.is_correct_key
-                                      ? "bg-indigo-50 border-indigo-200"
-                                      : opt.upper_pct > 0.4
-                                      ? "bg-amber-50 border-amber-300"
-                                      : "bg-white border-slate-200"
-                                  }`}
-                                >
-                                  <div className="flex justify-between items-center mb-1">
-                                    <span
-                                      translate="no"
-                                      className="notranslate font-bold text-slate-900"
-                                    >
-                                      Option {opt.option}{" "}
-                                      {opt.is_correct_key && (
-                                        <span className="text-indigo-600 text-[10px] uppercase font-semibold">(Key)</span>
-                                      )}
-                                    </span>
-                                    <span className="text-slate-500 font-mono">
-                                      {(opt.overall_pct * 100).toFixed(0)}%
-                                    </span>
-                                  </div>
-                                  <div className="text-[11px] text-slate-600 space-y-0.5">
-                                    <div>Top 27%: {(opt.upper_pct * 100).toFixed(0)}%</div>
-                                    <div>Bottom 27%: {(opt.lower_pct * 100).toFixed(0)}%</div>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-                </React.Fragment>
+                    ) : (
+                      <span className="inline-flex items-center space-x-1.5 text-slate-600 text-xs">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0"></span>
+                        <span>Functioning</span>
+                      </span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedItem(item);
+                      }}
+                      className="inline-flex items-center space-x-1 text-xs font-medium text-slate-600 hover:text-slate-900 px-2 py-1 rounded hover:bg-slate-100 transition cursor-pointer"
+                    >
+                      <span>Inspect</span>
+                      <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                    </button>
+                  </td>
+                </tr>
               );
             })}
           </tbody>
         </table>
       </div>
+
+      {/* Slide-over Drawer for Item Psychometric Inspection */}
+      {selectedItem && (
+        <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/30 backdrop-blur-xs flex justify-end animate-fade-in">
+          <div
+            className="w-full max-w-lg bg-white h-full shadow-2xl border-l border-slate-200 flex flex-col justify-between overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Drawer Header */}
+            <div>
+              <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                <div>
+                  <div className="flex items-center space-x-2">
+                    <h4 className="text-base font-semibold text-slate-900">
+                      Question #{selectedItem.item_number} Psychometrics
+                    </h4>
+                    <span
+                      translate="no"
+                      className="notranslate text-xs font-mono font-semibold bg-slate-200 text-slate-800 px-2 py-0.5 rounded"
+                    >
+                      Key: {selectedItem.correct_option}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-500 mt-0.5">{selectedItem.topic_tag}</p>
+                </div>
+                <button
+                  onClick={() => setSelectedItem(null)}
+                  className="p-1.5 rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Drawer Content */}
+              <div className="p-6 space-y-5">
+                {/* 3 Metric Cards */}
+                <div className="grid grid-cols-3 gap-2.5">
+                  <div className="p-3 rounded-lg border border-slate-200 bg-slate-50 text-center">
+                    <span className="text-[11px] font-medium text-slate-500 block">Difficulty (p)</span>
+                    <span className="text-lg font-bold text-slate-900 tabular-nums">
+                      {selectedItem.difficulty_p.toFixed(2)}
+                    </span>
+                    <span className="text-[10px] text-slate-500 block mt-0.5">{selectedItem.difficulty_label}</span>
+                  </div>
+                  <div className="p-3 rounded-lg border border-slate-200 bg-slate-50 text-center">
+                    <span className="text-[11px] font-medium text-slate-500 block">Discrimination (D)</span>
+                    <span
+                      className={`text-lg font-bold tabular-nums ${
+                        selectedItem.discrimination_d < 0 ? "text-rose-600" : "text-slate-900"
+                      }`}
+                    >
+                      {selectedItem.discrimination_d > 0 ? "+" : ""}
+                      {selectedItem.discrimination_d.toFixed(2)}
+                    </span>
+                    <span className="text-[10px] text-slate-500 block mt-0.5">
+                      {selectedItem.discrimination_label}
+                    </span>
+                  </div>
+                  <div className="p-3 rounded-lg border border-slate-200 bg-slate-50 text-center">
+                    <span className="text-[11px] font-medium text-slate-500 block">Point-Biserial (r)</span>
+                    <span className="text-lg font-bold text-slate-900 tabular-nums font-mono">
+                      {selectedItem.point_biserial_r !== null ? selectedItem.point_biserial_r.toFixed(2) : "N/A"}
+                    </span>
+                    <span className="text-[10px] text-slate-500 block mt-0.5">Correlation</span>
+                  </div>
+                </div>
+
+                {/* Pedagogical Anomaly Report */}
+                <div
+                  className={`p-4 rounded-lg border text-xs leading-relaxed ${
+                    selectedItem.anomaly_flag
+                      ? "bg-rose-50 border-rose-200 text-rose-900"
+                      : "bg-slate-50 border-slate-200 text-slate-700"
+                  }`}
+                >
+                  <div className="flex items-center space-x-1.5 font-semibold mb-1.5">
+                    {selectedItem.anomaly_flag ? (
+                      <AlertTriangle className="w-4 h-4 text-rose-600 flex-shrink-0" />
+                    ) : (
+                      <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                    )}
+                    <span>
+                      {selectedItem.anomaly_flag ? "Pedagogical Anomaly Finding" : "Psychometric Item Function"}
+                    </span>
+                  </div>
+                  <p>{selectedItem.plain_english_insight}</p>
+                </div>
+
+                {/* Distractor Breakdown: Option A, B, C, D */}
+                <div>
+                  <h5 className="text-xs font-semibold text-slate-900 uppercase tracking-wider mb-2.5">
+                    Distractor Analysis (Kelley 27% Ability Split)
+                  </h5>
+                  <div className="space-y-2.5">
+                    {selectedItem.option_breakdown.map((opt) => {
+                      const upperPct = opt.upper_pct * 100;
+                      const lowerPct = opt.lower_pct * 100;
+                      const overallPct = opt.overall_pct * 100;
+                      const isDistractorAnomaly = !opt.is_correct_key && opt.upper_pct > 0.4;
+
+                      return (
+                        <div
+                          key={opt.option}
+                          className={`p-3 rounded-lg border text-xs ${
+                            opt.is_correct_key
+                              ? "bg-indigo-50/50 border-indigo-200"
+                              : isDistractorAnomaly
+                              ? "bg-rose-50/50 border-rose-200"
+                              : "bg-white border-slate-200"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <span
+                              translate="no"
+                              className="notranslate font-semibold text-slate-900 flex items-center space-x-1.5"
+                            >
+                              <span>Option {opt.option}</span>
+                              {opt.is_correct_key && (
+                                <span className="text-[10px] font-semibold text-indigo-700 bg-indigo-100 px-1.5 py-0.2 rounded">
+                                  Designated Key
+                                </span>
+                              )}
+                              {isDistractorAnomaly && (
+                                <span className="text-[10px] font-semibold text-rose-700 bg-rose-100 px-1.5 py-0.2 rounded">
+                                  Attracts Top Students
+                                </span>
+                              )}
+                            </span>
+                            <span className="text-slate-600 font-mono tabular-nums font-medium">
+                              {overallPct.toFixed(0)}% Overall
+                            </span>
+                          </div>
+
+                          {/* Horizontal Comparison Bars */}
+                          <div className="space-y-1.5 text-[11px]">
+                            {/* Top 27% Bar */}
+                            <div className="flex items-center space-x-2">
+                              <span className="w-16 text-slate-500 text-[10px]">Top 27%:</span>
+                              <div className="flex-1 bg-slate-100 h-2 rounded-full overflow-hidden">
+                                <div
+                                  className={`h-2 rounded-full ${
+                                    opt.is_correct_key ? "bg-indigo-600" : isDistractorAnomaly ? "bg-rose-500" : "bg-slate-400"
+                                  }`}
+                                  style={{ width: `${Math.min(100, upperPct)}%` }}
+                                ></div>
+                              </div>
+                              <span className="w-10 text-right font-mono tabular-nums text-slate-700">
+                                {upperPct.toFixed(0)}%
+                              </span>
+                            </div>
+
+                            {/* Bottom 27% Bar */}
+                            <div className="flex items-center space-x-2">
+                              <span className="w-16 text-slate-500 text-[10px]">Bottom 27%:</span>
+                              <div className="flex-1 bg-slate-100 h-2 rounded-full overflow-hidden">
+                                <div
+                                  className="h-2 rounded-full bg-slate-300"
+                                  style={{ width: `${Math.min(100, lowerPct)}%` }}
+                                ></div>
+                              </div>
+                              <span className="w-10 text-right font-mono tabular-nums text-slate-700">
+                                {lowerPct.toFixed(0)}%
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Drawer Footer */}
+            <div className="p-4 border-t border-slate-200 bg-slate-50 flex justify-end">
+              <button
+                onClick={() => setSelectedItem(null)}
+                className="px-4 py-2 text-xs font-medium text-slate-700 bg-white hover:bg-slate-100 border border-slate-200 rounded-md transition cursor-pointer"
+              >
+                Close Inspection
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

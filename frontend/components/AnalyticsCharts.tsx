@@ -45,31 +45,33 @@ export function AnalyticsCharts({ summary }: { summary?: ClassAnalyticsSummary }
   ];
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+    <div className="bg-white rounded-lg border border-slate-200 p-5 shadow-xs flex flex-col justify-between h-full">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h4 className="text-sm font-bold text-slate-900">Unit 3 Score Distribution</h4>
-          <p className="text-xs text-slate-500">
-            N = {totalExaminees} examinees | Mean: {meanPercentage.toFixed(1)}% | Median:{" "}
+          <h4 className="text-xs font-semibold text-slate-900 uppercase tracking-wider">
+            Unit 3 Score Distribution
+          </h4>
+          <p className="text-xs text-slate-500 mt-0.5 tabular-nums">
+            N = {totalExaminees} examinees • Class Mean: {meanPercentage.toFixed(1)}% • Median:{" "}
             {medianPercentage.toFixed(1)}%
           </p>
         </div>
-        <div className="flex items-center space-x-3 text-xs text-slate-500">
+        <div className="flex items-center space-x-3 text-[11px] text-slate-500 font-medium">
           <span className="flex items-center space-x-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+            <span className="w-2 h-2 rounded-full bg-rose-500"></span>
             <span>&lt;50%</span>
           </span>
           <span className="flex items-center space-x-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
             <span>85%+</span>
           </span>
         </div>
       </div>
 
-      <div className="h-60 w-full flex items-center justify-center">
+      <div className="h-56 w-full flex items-center justify-center">
         {!mounted ? (
-          <div className="w-full h-full animate-pulse bg-slate-50 rounded-lg flex items-center justify-center text-xs text-slate-400">
-            Loading score distribution...
+          <div className="w-full h-full animate-pulse bg-slate-50 rounded flex items-center justify-center text-xs text-slate-400">
+            Loading distribution...
           </div>
         ) : (
           <ResponsiveContainer width="100%" height="100%">
@@ -78,10 +80,10 @@ export function AnalyticsCharts({ summary }: { summary?: ClassAnalyticsSummary }
               <XAxis dataKey="bracket" tick={{ fontSize: 11, fill: "#64748b" }} axisLine={{ stroke: "#e2e8f0" }} />
               <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: "#64748b" }} axisLine={{ stroke: "#e2e8f0" }} />
               <Tooltip
-                formatter={(val: number) => [`${val} students`, "Count"]}
-                contentStyle={{ borderRadius: "8px", border: "1px solid #e2e8f0", fontSize: "12px" }}
+                formatter={(val: number) => [`${val} students`, "Examinees"]}
+                contentStyle={{ borderRadius: "6px", border: "1px solid #e2e8f0", fontSize: "12px", boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)" }}
               />
-              <Bar dataKey="count" radius={[6, 6, 0, 0]}>
+              <Bar dataKey="count" radius={[4, 4, 0, 0]}>
                 {chartData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}

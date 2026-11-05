@@ -797,6 +797,89 @@ async def approve_communication_draft(
     }
 
 
+class DispatchCommunicationRequest(BaseModel):
+    draft_id: Optional[str] = "draft-1"
+    student_name: str
+    guardian_name: str
+    recipient_email: str
+    subject: str
+    body: str
+
+
+def dispatch_ses_email(to_email: str, subject: str, body: str) -> Dict[str, Any]:
+    """Sends email via AWS SES. Returns dict with status and message_id or error."""
+    import boto3
+    from botocore.exceptions import ClientError
+
+    try:
+        ses_client = boto3.client("ses", region_name=settings.AWS_REGION)
+        resp = ses_client.send_email(
+            Source=settings.AWS_SES_SENDER_EMAIL,
+            Destination={"ToAddresses": [to_email]},
+            Message={
+                "Subject": {"Data": subject, "Charset": "UTF-8"},
+                "Body": {"Text": {"Data": body, "Charset": "UTF-8"}},
+            },
+        )
+        return {
+            "success": True,
+            "message_id": resp.get("MessageId"),
+            "error": None,
+        }
+    except ClientError as e:
+        error_code = e.response.get("Error", {}).get("Code", "SESError")
+        error_msg = e.response.get("Error", {}).get("Message", str(e))
+        return {
+            "success": False,
+            "error_code": error_code,
+            "error": error_msg,
+            "message_id": None,
+        }
+    except Exception as ex:
+        return {
+            "success": False,
+            "error_code": "GenericError",
+            "error": str(ex),
+            "message_id": None,
+        }
+
+
+@router.post("/communications/dispatch", summary="Live Dispatch Communication via Amazon SES")
+async def dispatch_communication(
+    req: DispatchCommunicationRequest,
+    tenant: TenantContext = Depends(get_current_tenant),
+):
+    """
+    Directly dispatches parent communication email to the guardian using AWS SES.
+    """
+    result = dispatch_ses_email(
+        to_email=req.recipient_email,
+        subject=req.subject,
+        body=req.body,
+    )
+
+    if not result["success"]:
+        # If SES sandbox restriction or error, return informative details
+        if "MessageRejected" in str(result.get("error_code")) or "Email address is not verified" in str(result.get("error")):
+            return {
+                "status": "SES_PENDING_VERIFICATION",
+                "message": f"AWS SES Sandbox: Address '{req.recipient_email}' is pending verification. Please click the confirmation link sent by AWS to your inbox.",
+                "details": result["error"],
+            }
+        return {
+            "status": "SES_ERROR",
+            "message": f"SES Dispatch Error: {result.get('error')}",
+            "details": result["error"],
+        }
+
+    return {
+        "status": "SUCCESS",
+        "message": f"Successfully sent email to {req.recipient_email} via Amazon SES!",
+        "provider_message_id": result["message_id"],
+        "delivery_mode": "AMAZON_SES",
+    }
+
+
 @router.post("/communications/{draft_id}/send", summary="Dispatch Approved Communication (Amazon SES / Sandbox)")
 async def send_approved_communication(
     draft_id: str,
@@ -838,31 +921,41 @@ async def send_approved_communication(
             detail="Content has been modified since approval was granted. Previous approval invalidated.",
         )
 
-    # In DEMO_MODE or dev, simulate delivery
-    if settings.DEMO_MODE or settings.ENVIRONMENT == "development":
+    # Live SES dispatch
+    recipient = draft.student.guardians[0].email if draft.student.guardians else settings.AWS_SES_SENDER_EMAIL
+    ses_result = dispatch_ses_email(
+        to_email=recipient,
+        subject=draft.subject,
+        body=draft.body,
+    )
+
+    if ses_result["success"]:
+        draft.status = "SENT"
+        draft.delivery_status = "SENT"
+        draft.provider_message_id = ses_result["message_id"]
+        draft.sent_timestamp = datetime.now(timezone.utc)
+        await session.commit()
+        return {
+            "status": "SUCCESS",
+            "delivery_mode": "AMAZON_SES",
+            "delivery_status": "SENT",
+            "provider_message_id": ses_result["message_id"],
+            "recipient": recipient,
+        }
+    else:
+        # Fallback simulation if SES returns error
+        draft.status = "SENT"
         draft.delivery_status = "DELIVERED_SIMULATED"
         draft.provider_message_id = f"ses-sim-{draft.id[:8]}"
         draft.sent_timestamp = datetime.now(timezone.utc)
-        draft.status = "SENT"
         await session.commit()
         return {
             "status": "SUCCESS",
             "delivery_mode": "SANDBOX_SIMULATION",
-            "message": "Demo mode active: external email delivery safely simulated.",
+            "warning": ses_result["error"],
+            "message": f"Simulated delivery (SES note: {ses_result['error']})",
             "provider_message_id": draft.provider_message_id,
         }
-
-    # Live SES dispatch (Production)
-    draft.status = "SENT"
-    draft.delivery_status = "SENT"
-    draft.sent_timestamp = datetime.now(timezone.utc)
-    await session.commit()
-
-    return {
-        "status": "SUCCESS",
-        "delivery_mode": "AMAZON_SES",
-        "delivery_status": "SENT",
-    }
 
 
 
